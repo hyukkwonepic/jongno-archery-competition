@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^6.2.2",
     "jest": "^24.9.0",
     "nodemon": "^1.19.1"
   },
