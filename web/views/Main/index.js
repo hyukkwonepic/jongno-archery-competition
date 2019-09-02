@@ -11,7 +11,7 @@ export default function Main() {
       <S.Content>
         <S.Title>제 9회 종로 전국 활쏘기 대회</S.Title>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             <MainCard
               title="개인전"
               path="/individual"
@@ -27,7 +27,7 @@ export default function Main() {
               ]}
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             <MainCard
               title="실업부"
               path="/semipro"
@@ -39,7 +39,7 @@ export default function Main() {
               ]}
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             <MainCard
               title="단체전"
               path="/team"
