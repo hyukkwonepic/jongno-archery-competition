@@ -8,12 +8,16 @@ export const MainCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
 
   h2 {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
+    color: #333;
   }
 `;
 export const Dates = styled.div`
