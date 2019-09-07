@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import * as S from './styles';
 
-export default function Info({ dates, ...props }) {
+export default function Info({ dates, path, ...props }) {
   return (
     <S.Info {...props}>
       <h2>대회 정보</h2>
@@ -15,7 +15,7 @@ export default function Info({ dates, ...props }) {
         ))}
       </S.Dates>
       <div>
-        <Link href="/individual/timetable">
+        <Link href={path}>
           <S.PrimaryButton>시간표 보기</S.PrimaryButton>
         </Link>
       </div>

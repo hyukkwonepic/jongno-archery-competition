@@ -14,7 +14,7 @@ export default function MainCard({ title, path, dates }) {
         ))}
       </S.Dates>
       <S.Buttons>
-        <Link href={path}>
+        <Link href={`${path}/apply`}>
           <a>
             <S.PrimaryButton type="button">신청하기</S.PrimaryButton>
           </a>
