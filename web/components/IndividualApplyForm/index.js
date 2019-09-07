@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 
 import * as S from './styles';
 
-export default function IndividualForm() {
+export default function IndividualApplyForm() {
   return (
     <S.Form>
-      <h2>대회 신청</h2>
+      <h2>개인전 신청</h2>
       <Formik
         initialValues={{
           name: '',

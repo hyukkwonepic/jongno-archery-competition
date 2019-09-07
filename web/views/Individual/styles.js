@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Info from 'components/Info';
 
 export const Content = styled.div`
   padding-top: 6rem;
@@ -11,10 +10,6 @@ export const Title = styled.h1`
   font-weight: 800;
   text-align: center;
   margin-bottom: 6rem;
-`;
-
-export const StyledInfo = styled(Info)`
-  margin-bottom: 2rem;
 `;
 
 export const Form = styled.div`

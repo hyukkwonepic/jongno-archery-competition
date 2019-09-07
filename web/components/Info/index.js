@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+
 import * as S from './styles';
 
 export default function Info({ dates, ...props }) {
@@ -12,6 +14,11 @@ export default function Info({ dates, ...props }) {
           </span>
         ))}
       </S.Dates>
+      <div>
+        <Link href="/individual/timetable">
+          <S.PrimaryButton>시간표 보기</S.PrimaryButton>
+        </Link>
+      </div>
     </S.Info>
   );
 }

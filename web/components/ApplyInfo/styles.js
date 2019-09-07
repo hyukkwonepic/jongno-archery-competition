@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
-export const MainCard = styled.div`
+export const Info = styled.div`
+  text-align: center;
   background: white;
   border-radius: 0.5rem;
-  padding: 5rem 3rem 3rem 3rem;
-  height: 27rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 27rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
   -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  /* margin-bottom: 2rem; */
 
   h2 {
     text-align: center;
@@ -20,26 +23,20 @@ export const MainCard = styled.div`
     color: #333;
   }
 `;
-export const Dates = styled.div`
+
+export const Date = styled.div`
   span {
     text-align: center;
     display: block;
     font-size: 1.6rem;
     font-weight: 500;
-    margin: 0.5rem 0;
     color: #333;
+    margin-bottom: 1rem;
   }
 `;
 
-export const Buttons = styled.div`
-  display: flex;
-
-  a {
-    width: 100%;
-  }
-`;
-
-export const Button = styled.button`
+export const Button = styled.a`
+  display: inline-block;
   border-radius: 10rem;
   font-size: 1.8rem;
   font-weight: 700;
@@ -47,17 +44,12 @@ export const Button = styled.button`
   line-height: 4.5rem;
   border: none;
   padding: unset;
-  width: 100%;
+  width: 12rem;
+  cursor: pointer;
 `;
 
 export const PrimaryButton = styled(Button)`
   background: #a00000;
   margin-right: 0.8rem;
-  width: calc(100% - 0.8rem);
   color: white;
-`;
-export const SecondaryButton = styled(Button)`
-  background: #e6ecf0;
-  margin-left: 0.8rem;
-  width: calc(100% - 0.8rem);
 `;

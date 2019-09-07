@@ -22,7 +22,7 @@ export default function MainCard({ title, path, dates }) {
 
         <Link href={path}>
           <a>
-            <S.SecondaryButton type="button">작대현황</S.SecondaryButton>
+            <S.SecondaryButton type="button">대회정보</S.SecondaryButton>
           </a>
         </Link>
       </S.Buttons>

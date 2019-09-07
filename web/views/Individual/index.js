@@ -2,7 +2,9 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Layout from 'components/Layout';
-import IndividualForm from 'components/IndividualForm';
+import IndividualRoundStatus from 'components/IndividualRoundStatus';
+import Info from 'components/Info';
+import ApplyInfo from 'components/ApplyInfo';
 import * as S from './styles';
 
 export default function Individual() {
@@ -10,9 +12,9 @@ export default function Individual() {
     <Layout>
       <S.Content>
         <S.Title>개인전</S.Title>
-        <Grid container justify="center" spacing={2}>
-          <Grid item xs={12} md={8}>
-            <S.StyledInfo
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Info
               dates={[
                 {
                   date: '2019년 9월 21일(토)',
@@ -24,7 +26,15 @@ export default function Individual() {
                 }
               ]}
             />
-            <IndividualForm />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ApplyInfo
+              startDate="2019년 9월 21일(토)"
+              endDate="2019년 9월 22일 (일)"
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <IndividualRoundStatus />
           </Grid>
         </Grid>
       </S.Content>
