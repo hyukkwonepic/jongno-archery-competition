@@ -21,6 +21,10 @@ export const Info = styled.div`
     font-weight: 700;
     margin: 0;
     color: #333;
+
+    @media only screen and (min-width: 960px) {
+      font-size: 2.2rem;
+    }
   }
 `;
 

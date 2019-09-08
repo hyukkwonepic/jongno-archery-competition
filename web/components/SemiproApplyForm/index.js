@@ -7,7 +7,7 @@ import * as S from './styles';
 export default function SemiproApplyForm() {
   return (
     <S.Form>
-      <h2>실업부 신청</h2>
+      <h2>실업부 신청하기</h2>
       <Formik
         initialValues={{
           name: '',

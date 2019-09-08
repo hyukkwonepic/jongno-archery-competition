@@ -22,6 +22,10 @@ export const Info = styled.div`
     font-weight: 700;
     margin: 0;
     color: #333;
+
+    @media only screen and (min-width: 960px) {
+      font-size: 2.2rem;
+    }
   }
 `;
 
@@ -45,7 +49,7 @@ export const Button = styled.a`
   line-height: 4.5rem;
   border: none;
   padding: unset;
-  width: 12rem;
+  width: 14rem;
   cursor: pointer;
 `;
 

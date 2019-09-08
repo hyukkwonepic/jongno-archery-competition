@@ -11,7 +11,7 @@ import * as S from './styles';
 export default function IndividualTimetable() {
   return (
     <S.IndividualTimetable>
-      <h2>개인전 시간표</h2>
+      <h2>시간표</h2>
 
       <S.TableContainer>
         <Table>

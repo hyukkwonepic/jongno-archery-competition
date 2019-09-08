@@ -9,6 +9,7 @@ export default function IndividualSchedule() {
   return (
     <Layout>
       <S.Content>
+        <S.Title>개인전</S.Title>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={12} md={10}>
             <IndividualTimetable />

@@ -9,6 +9,10 @@ export const IndividualTimetable = styled.div`
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   margin-bottom: 2rem;
 
+  @media only screen and (min-width: 960px) {
+    padding: 5rem 5rem 4rem 5rem;
+  }
+
   h2 {
     text-align: center;
     font-size: 2rem;
@@ -16,6 +20,10 @@ export const IndividualTimetable = styled.div`
     margin: 0;
     margin-bottom: 5rem;
     color: #333;
+
+    @media only screen and (min-width: 960px) {
+      font-size: 2.2rem;
+    }
   }
 `;
 

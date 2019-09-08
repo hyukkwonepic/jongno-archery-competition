@@ -7,7 +7,7 @@ import * as S from './styles';
 export default function IndividualApplyForm() {
   return (
     <S.Form>
-      <h2>개인전 신청</h2>
+      <h2>개인전 신청하기</h2>
       <Formik
         initialValues={{
           name: '',
@@ -157,7 +157,7 @@ export default function IndividualApplyForm() {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                신청하기
+                등록하기
               </button>
             </Form>
           );

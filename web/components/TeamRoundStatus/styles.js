@@ -18,6 +18,10 @@ export const TeamRound = styled.div`
     margin: 0;
     margin-bottom: 5rem;
     color: #333;
+
+    @media only screen and (min-width: 960px) {
+      font-size: 2.2rem;
+    }
   }
 `;
 

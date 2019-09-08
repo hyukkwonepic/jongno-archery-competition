@@ -7,7 +7,7 @@ import * as S from './styles';
 export default function TeamApplyForm() {
   return (
     <S.Form>
-      <h2>단체전 신청</h2>
+      <h2>단체전 신청하기</h2>
       <Formik
         initialValues={{
           city: '',
