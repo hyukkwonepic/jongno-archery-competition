@@ -16,6 +16,11 @@ export const Title = styled.h1`
   margin-bottom: 6rem;
   margin-top: 0;
 
+  span {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
   @media only screen and (min-width: 960px) {
     margin-bottom: 7rem;
     font-size: 2.8rem;

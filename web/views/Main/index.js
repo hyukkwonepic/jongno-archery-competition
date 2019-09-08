@@ -1,15 +1,20 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import * as S from './styles';
 
 import Layout from '../../components/Layout';
 import MainCard from '../../components/MainCard';
 
-export default function Main() {
+import * as S from './styles';
+
+function Main() {
   return (
     <Layout>
       <S.Content>
-        <S.Title>제 9회 종로 전국 활쏘기 대회</S.Title>
+        <S.Title>
+          제 9회 종로 전국 활쏘기 대회
+          <br />
+          <span>(시간 작대)</span>
+        </S.Title>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <MainCard
@@ -27,18 +32,7 @@ export default function Main() {
               ]}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
-            <MainCard
-              title="실업부"
-              path="/semipro"
-              dates={[
-                {
-                  date: '2019년 9월 21일(토)',
-                  round: '1대 ~ 6대'
-                }
-              ]}
-            />
-          </Grid>
+
           <Grid item xs={12} md={4}>
             <MainCard
               title="단체전"
@@ -51,8 +45,22 @@ export default function Main() {
               ]}
             />
           </Grid>
+          <Grid item xs={12} md={4}>
+            <MainCard
+              title="실업부"
+              path="/semipro"
+              dates={[
+                {
+                  date: '2019년 9월 21일(토)',
+                  round: '1대 ~ 6대'
+                }
+              ]}
+            />
+          </Grid>
         </Grid>
       </S.Content>
     </Layout>
   );
 }
+
+export default Main;
