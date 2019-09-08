@@ -54,7 +54,7 @@ const resolvers = {
         .then(snapshot => snapshot.docs.length);
 
       if (selectedRoundApplicationsLength >= 7) {
-        throw Error('Round is full');
+        throw Error('Round is full.');
       }
 
       const newApplication = await db
@@ -79,8 +79,27 @@ const resolvers = {
     updateIndividualApplication(root, args, { db }) {
       return 'hey';
     },
-    deleteIndividualApplication(root, args, { db }) {
-      return 'hey';
+    async deleteIndividualApplication(root, args, { db }) {
+      const { id, password } = args;
+
+      const applicationRef = db.collection('individualApplications').doc(id);
+
+      const applicationSnapshot = await applicationRef.get();
+      if (!applicationSnapshot.exists) {
+        return Error('Application does not exist.');
+      }
+
+      const data = applicationSnapshot.data();
+      const isPasswordMatch = data.password === password;
+
+      if (!isPasswordMatch) {
+        return Error('Password does not match.');
+      }
+      applicationRef.delete();
+      return {
+        id: applicationRef.id,
+        ...data
+      };
     },
     createTeamApplication(root, args, { db }) {
       return 'hyou';

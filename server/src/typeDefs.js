@@ -45,7 +45,6 @@ const typeDefs = gql`
     range: String!
     name: String!
     mobile: String!
-    password: String!
   }
 
   input IndividualApplicationCreateInput {
@@ -78,7 +77,6 @@ const typeDefs = gql`
     player5: String!
     substitute: String!
     mobile: String!
-    password: String!
   }
 
   input TeamApplicationCreateInput {
@@ -117,7 +115,6 @@ const typeDefs = gql`
     range: String!
     name: String!
     mobile: String!
-    password: String!
   }
 
   input SemiproApplicationCreateInput {

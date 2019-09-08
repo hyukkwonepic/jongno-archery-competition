@@ -24,7 +24,7 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getFistDayTableContent(applications) {
+function getFistDayTableContent(applications, onDelete) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -42,6 +42,7 @@ function getFistDayTableContent(applications) {
     const isFirstNumber = i % 7 === 0;
     const isLastCellOfRound = number === 7;
 
+    let id = '';
     let city = '';
     let range = '';
     let name = '';
@@ -54,6 +55,7 @@ function getFistDayTableContent(applications) {
     });
 
     if (application) {
+      id = application.id;
       city = application.city;
       range = application.range;
       name = application.name;
@@ -85,14 +87,14 @@ function getFistDayTableContent(applications) {
           {mobile}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <Link href="/individual/1234">
+          <Link href={`/individual/${id}`}>
             <a>
               <EditSVG />
             </a>
           </Link>
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <button type="button">
+          <button type="button" onClick={id ? () => onDelete(id) : null}>
             <CancelSVG />
           </button>
         </TableCell>
@@ -142,7 +144,7 @@ function getFistDayTableContent(applications) {
   );
 }
 
-function getSecondDayTableContent(applications) {
+function getSecondDayTableContent(applications, onDelete) {
   // First day Sep 22nd
   let tableRows = [];
   const startRound = 10;
@@ -170,6 +172,7 @@ function getSecondDayTableContent(applications) {
     const isFirstNumber = i % 7 === 0;
     const isLastCellOfRound = number === 7;
 
+    let id = '';
     let city = '';
     let range = '';
     let name = '';
@@ -182,6 +185,7 @@ function getSecondDayTableContent(applications) {
     });
 
     if (application) {
+      id = application.id;
       city = application.city;
       range = application.range;
       name = application.name;
@@ -213,14 +217,14 @@ function getSecondDayTableContent(applications) {
           {mobile}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <Link href="/individual/1234">
+          <Link href={`/individual/${id}`}>
             <a>
               <EditSVG />
             </a>
           </Link>
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <button type="button">
+          <button type="button" onClick={id ? () => onDelete(id) : null}>
             <CancelSVG />
           </button>
         </TableCell>
@@ -242,7 +246,7 @@ function getSecondDayTableContent(applications) {
   );
 }
 
-export default function IndividualRoundStatus({ applications }) {
+export default function IndividualRoundStatus({ applications, onDelete }) {
   const firstDayApplications = [];
   const secondDayApplications = [];
   applications.forEach(item => {
@@ -260,8 +264,8 @@ export default function IndividualRoundStatus({ applications }) {
 
       <S.TableContainer>
         <Table>
-          {getFistDayTableContent(firstDayApplications)}
-          {getSecondDayTableContent(secondDayApplications)}
+          {getFistDayTableContent(firstDayApplications, onDelete)}
+          {getSecondDayTableContent(secondDayApplications, onDelete)}
         </Table>
       </S.TableContainer>
     </S.IndividualRound>

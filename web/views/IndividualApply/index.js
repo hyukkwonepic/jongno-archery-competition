@@ -61,7 +61,7 @@ function IndividualApply() {
     } catch (e) {
       const { message } = e;
       switch (message) {
-        case 'GraphQL error: Round is full': {
+        case 'GraphQL error: Round is full.': {
           window.alert('작대가 마감되었습니다. 다른 작대를 선택해 주세요.');
           break;
         }
