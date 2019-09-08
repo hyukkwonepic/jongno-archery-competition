@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import * as S from './styles';
 
-export default function IndividualApplyForm() {
+export default function IndividualApplyForm({ onSubmit }) {
   return (
     <S.Form>
       <h2>개인전 신청하기</h2>
@@ -39,10 +39,8 @@ export default function IndividualApplyForm() {
             .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            window.alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          onSubmit(values);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => {

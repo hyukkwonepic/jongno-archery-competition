@@ -1,5 +1,3 @@
-const { db } = require('../firebase');
-
 const resolvers = {
   Query: {
     async individualApplications(root, args, { db }) {
@@ -36,9 +34,9 @@ const resolvers = {
         .orderBy('number')
         .get()
         .then(snapshot =>
-          snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
+          snapshot.docs.map(docSnapshot => ({
+            id: docSnapshot.id,
+            ...docSnapshot.data()
           }))
         );
 
@@ -46,8 +44,37 @@ const resolvers = {
     }
   },
   Mutation: {
-    createIndividualApplication(root, args, { db }) {
-      return 'hey';
+    async createIndividualApplication(root, args, { db }) {
+      const { round, city, range, name, mobile, password } = args.input;
+
+      const selectedRoundApplicationsLength = await db
+        .collection('individualApplications')
+        .where('round', '==', round)
+        .get()
+        .then(snapshot => snapshot.docs.length);
+
+      if (selectedRoundApplicationsLength >= 7) {
+        throw Error('Round is full');
+      }
+
+      const newApplication = await db
+        .collection('individualApplications')
+        .add({
+          round,
+          number: selectedRoundApplicationsLength + 1,
+          city,
+          range,
+          name,
+          mobile,
+          password
+        })
+        .then(ref => ref.get())
+        .then(docSnapshot => ({
+          id: docSnapshot.id,
+          ...docSnapshot.data()
+        }));
+
+      return newApplication;
     },
     updateIndividualApplication(root, args, { db }) {
       return 'hey';

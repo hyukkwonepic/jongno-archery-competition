@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const INDIVIDUAL_APPLICATIONS = gql`
-  query INDIVIDUAL_APPLICATIONS {
+  query individualApplications {
     individualApplications {
       id
       round
@@ -10,7 +10,6 @@ export const INDIVIDUAL_APPLICATIONS = gql`
       range
       name
       mobile
-      password
     }
   }
 `;

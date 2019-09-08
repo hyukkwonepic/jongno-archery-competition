@@ -50,7 +50,6 @@ const typeDefs = gql`
 
   input IndividualApplicationCreateInput {
     round: Int!
-    number: Int!
     city: String!
     range: String!
     name: String!
@@ -60,7 +59,6 @@ const typeDefs = gql`
 
   input IndividualApplicationUpdateInput {
     round: Int!
-    number: Int!
     city: String!
     range: String!
     name: String!
@@ -124,7 +122,6 @@ const typeDefs = gql`
 
   input SemiproApplicationCreateInput {
     round: Int!
-    number: Int!
     city: String!
     range: String!
     name: String!
@@ -134,7 +131,6 @@ const typeDefs = gql`
 
   input SemiproApplicationUpdateInput {
     round: Int!
-    number: Int!
     city: String!
     range: String!
     name: String!
