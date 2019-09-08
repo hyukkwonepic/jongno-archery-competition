@@ -12,12 +12,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@now/node": "^1.0.0",
     "eslint": "^6.2.2",
     "jest": "^24.9.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
     "apollo-server": "^2.9.0",
+    "apollo-server-micro": "^2.9.3",
+    "firebase-admin": "^8.5.0",
     "graphql": "^14.5.3"
   }
 }

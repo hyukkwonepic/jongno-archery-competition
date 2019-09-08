@@ -1,0 +1,5 @@
+{
+  "name": "jongno-archery-competition-server",
+  "builds": [{ "src": "/graphql/index.js", "use": "@now/node" }],
+  "version": 2
+}
