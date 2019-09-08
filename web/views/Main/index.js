@@ -2,8 +2,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import * as S from './styles';
 
-import Layout from 'components/Layout';
-import MainCard from 'components/MainCard';
+import Layout from '../../components/Layout';
+import MainCard from '../../components/MainCard';
 
 export default function Main() {
   return (

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",

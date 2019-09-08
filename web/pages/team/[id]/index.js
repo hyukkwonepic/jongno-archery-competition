@@ -1,1 +1,1 @@
-export { default } from 'views/TeamDetail';
+export { default } from '../../../views/TeamDetail';

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Layout from 'components/Layout';
-import IndividualTimetable from 'components/IndividualTimetable';
+import Layout from '../../components/Layout';
+import IndividualTimetable from '../../components/IndividualTimetable';
 import * as S from './styles';
 
 export default function IndividualSchedule() {

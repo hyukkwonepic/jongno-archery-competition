@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Layout from 'components/Layout';
-import IndividualRoundStatus from 'components/IndividualRoundStatus';
-import Info from 'components/Info';
-import ApplyInfo from 'components/ApplyInfo';
+import Layout from '../../components/Layout';
+import IndividualRoundStatus from '../../components/IndividualRoundStatus';
+import Info from '../../components/Info';
+import ApplyInfo from '../../components/ApplyInfo';
 import * as S from './styles';
 
 export default function Individual() {

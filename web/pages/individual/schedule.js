@@ -1,1 +1,1 @@
-export { default } from 'views/IndividualSchedule';
+export { default } from '../../views/IndividualSchedule';

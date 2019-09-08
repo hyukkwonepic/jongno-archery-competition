@@ -1,1 +1,1 @@
-export { default } from 'views/IndividualApply';
+export { default } from '../../views/IndividualApply';
