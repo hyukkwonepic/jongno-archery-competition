@@ -1,13 +1,21 @@
 import React from 'react';
-
 import Grid from '@material-ui/core/Grid';
+import { useQuery } from '@apollo/react-hooks';
+import { withApollo } from '../../lib/apollo';
+
 import Layout from '../../components/Layout';
 import IndividualRoundStatus from '../../components/IndividualRoundStatus';
 import Info from '../../components/Info';
 import ApplyInfo from '../../components/ApplyInfo';
-import * as S from './styles';
 
-export default function Individual() {
+import * as S from './styles';
+import * as Q from './queries';
+
+function Individual() {
+  const { loading, error, data, fetchMore, networkStatus } = useQuery(
+    Q.INDIVIDUAL_APPLICATIONS
+  );
+
   return (
     <Layout>
       <S.Content>
@@ -36,10 +44,12 @@ export default function Individual() {
             />
           </Grid>
           <Grid item xs={12} md={12}>
-            <IndividualRoundStatus />
+            <IndividualRoundStatus applications={data.individualApplications} />
           </Grid>
         </Grid>
       </S.Content>
     </Layout>
   );
 }
+
+export default withApollo(Individual);
