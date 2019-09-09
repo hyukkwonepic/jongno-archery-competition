@@ -21,6 +21,7 @@
     "apollo-server": "^2.9.0",
     "apollo-server-micro": "^2.9.3",
     "firebase-admin": "^8.5.0",
-    "graphql": "^14.5.3"
+    "graphql": "^14.5.3",
+    "merge-graphql-schemas": "^1.7.0"
   }
 }
