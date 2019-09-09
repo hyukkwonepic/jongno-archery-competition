@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useRouter } from 'next/router';
+import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { withApollo } from '../../lib/apollo';
 
 import Layout from '../../components/Layout';
@@ -12,44 +13,87 @@ import * as S from './styles';
 import * as Q from './queries';
 
 function Individual() {
+  const router = useRouter();
+  const client = useApolloClient();
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     Q.INDIVIDUAL_APPLICATIONS
   );
 
   const [deleteApplication] = useMutation(Q.DELETE_INDIVIDUAL_APPLICATION);
 
+  const handleEditApplication = async id => {
+    try {
+      const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
+      if (!password) {
+        return;
+      }
+
+      const { data } = await client.query({
+        query: Q.VALIDATE_APPLICATION_PASSWORD,
+        variables: {
+          type: 'individual',
+          id,
+          password
+        }
+      });
+
+      if (data) {
+        if (data.validateApplicationPassword) {
+          router.push({
+            pathname: `/individual/${id}`
+          });
+          window.sessionStorage.setItem('tmp_password', password);
+        } else {
+          window.alert('비밀번호가 일치하지 않습니다.');
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      const { message } = e;
+      switch (message) {
+        default: {
+          window.alert('오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+      }
+    }
+  };
+
   const handleDeleteApplication = async id => {
     try {
       const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
-      const confirm = window.confirm('정말로 삭제하시겠습니까?');
-      if (confirm) {
-        await deleteApplication({
-          variables: {
-            id,
-            password
-          },
-          update(
-            cache,
-            {
-              data: { deleteIndividualApplication }
-            }
-          ) {
-            const { individualApplications } = cache.readQuery({
-              query: Q.INDIVIDUAL_APPLICATIONS
-            });
-            cache.writeQuery({
-              query: Q.INDIVIDUAL_APPLICATIONS,
-              data: {
-                individualApplications: individualApplications.filter(
-                  item => item.id !== deleteIndividualApplication.id
-                )
-              }
-            });
-          }
-        });
-
-        window.alert('성공적으로 삭제되었습니다!');
+      if (!password) {
+        return;
       }
+      const confirm = window.confirm('정말로 삭제하시겠습니까?');
+      if (!confirm) {
+        return;
+      }
+      await deleteApplication({
+        variables: {
+          id,
+          password
+        },
+        update(
+          cache,
+          {
+            data: { deleteIndividualApplication }
+          }
+        ) {
+          const { individualApplications } = cache.readQuery({
+            query: Q.INDIVIDUAL_APPLICATIONS
+          });
+          cache.writeQuery({
+            query: Q.INDIVIDUAL_APPLICATIONS,
+            data: {
+              individualApplications: individualApplications.filter(
+                item => item.id !== deleteIndividualApplication.id
+              )
+            }
+          });
+        }
+      });
+
+      window.alert('성공적으로 삭제되었습니다!');
     } catch (e) {
       const { message } = e;
       switch (message) {
@@ -94,6 +138,7 @@ function Individual() {
           <Grid item xs={12} md={12}>
             <IndividualRoundStatus
               applications={data.individualApplications}
+              onEdit={handleEditApplication}
               onDelete={handleDeleteApplication}
             />
           </Grid>

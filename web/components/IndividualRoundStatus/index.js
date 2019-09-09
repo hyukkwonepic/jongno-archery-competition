@@ -24,7 +24,7 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getFistDayTableContent(applications, onDelete) {
+function getFistDayTableContent({ applications, onDelete, onEdit }) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -87,11 +87,9 @@ function getFistDayTableContent(applications, onDelete) {
           {mobile}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <Link href={`/individual/${id}`}>
-            <a>
-              <EditSVG />
-            </a>
-          </Link>
+          <button type="button" onClick={id ? () => onEdit(id) : null}>
+            <EditSVG />
+          </button>
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
           <button type="button" onClick={id ? () => onDelete(id) : null}>
@@ -144,7 +142,7 @@ function getFistDayTableContent(applications, onDelete) {
   );
 }
 
-function getSecondDayTableContent(applications, onDelete) {
+function getSecondDayTableContent({ applications, onDelete, onEdit }) {
   // First day Sep 22nd
   let tableRows = [];
   const startRound = 10;
@@ -217,11 +215,9 @@ function getSecondDayTableContent(applications, onDelete) {
           {mobile}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <Link href={`/individual/${id}`}>
-            <a>
-              <EditSVG />
-            </a>
-          </Link>
+          <button type="button" onClick={id ? () => onEdit(id) : null}>
+            <EditSVG />
+          </button>
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
           <button type="button" onClick={id ? () => onDelete(id) : null}>
@@ -246,7 +242,11 @@ function getSecondDayTableContent(applications, onDelete) {
   );
 }
 
-export default function IndividualRoundStatus({ applications, onDelete }) {
+export default function IndividualRoundStatus({
+  applications,
+  onDelete,
+  onEdit
+}) {
   const firstDayApplications = [];
   const secondDayApplications = [];
   applications.forEach(item => {
@@ -264,8 +264,16 @@ export default function IndividualRoundStatus({ applications, onDelete }) {
 
       <S.TableContainer>
         <Table>
-          {getFistDayTableContent(firstDayApplications, onDelete)}
-          {getSecondDayTableContent(secondDayApplications, onDelete)}
+          {getFistDayTableContent({
+            applications: firstDayApplications,
+            onDelete,
+            onEdit
+          })}
+          {getSecondDayTableContent({
+            applications: secondDayApplications,
+            onDelete,
+            onEdit
+          })}
         </Table>
       </S.TableContainer>
     </S.IndividualRound>

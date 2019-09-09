@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+export const VALIDATE_APPLICATION_PASSWORD = gql`
+  query validateApplicationPassword(
+    $type: String!
+    $id: ID!
+    $password: String!
+  ) {
+    validateApplicationPassword(type: $type, id: $id, password: $password)
+  }
+`;
+
 export const INDIVIDUAL_APPLICATIONS = gql`
   query individualApplications {
     individualApplications {
