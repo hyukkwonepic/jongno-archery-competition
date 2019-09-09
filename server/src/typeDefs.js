@@ -2,6 +2,12 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Query {
+    validateApplicationPassword(
+      type: String!
+      id: ID!
+      password: String!
+    ): Boolean!
+    individualApplication(id: ID!): IndividualApplication!
     individualApplications: [IndividualApplication!]!
     teamApplications: [TeamApplication!]!
     semiproApplications: [SemiproApplication!]!
@@ -57,12 +63,11 @@ const typeDefs = gql`
   }
 
   input IndividualApplicationUpdateInput {
-    round: Int!
-    city: String!
-    range: String!
-    name: String!
-    mobile: String!
-    password: String!
+    round: Int
+    city: String
+    range: String
+    name: String
+    mobile: String
   }
 
   type TeamApplication {

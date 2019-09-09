@@ -1,5 +1,47 @@
 const resolvers = {
   Query: {
+    async validateApplicationPassword(root, args, { db }) {
+      const { type, id, password } = args;
+      const COLLECTIONS = {
+        individual: 'individualApplications',
+        team: 'teamApplications',
+        semipro: 'semiproApplications'
+      };
+      const collection = COLLECTIONS[type];
+      if (!collection) {
+        return Error('Invalid application type.');
+      }
+
+      const applicationSnapshot = await db
+        .collection(collection)
+        .doc(id)
+        .get();
+
+      if (!applicationSnapshot.exists) {
+        return Error('Application does not exist.');
+      }
+
+      const data = applicationSnapshot.data();
+
+      return password === data.password;
+    },
+
+    async individualApplication(root, args, { db }) {
+      const { id } = args;
+      const applicationSnapshot = await db
+        .collection('individualApplications')
+        .doc(id)
+        .get();
+
+      if (!applicationSnapshot.exists) {
+        return Error('Application does not exist.');
+      }
+
+      return {
+        id: applicationSnapshot.id,
+        ...applicationSnapshot.data()
+      };
+    },
     async individualApplications(root, args, { db }) {
       const individualApplications = await db
         .collection('individualApplications')
@@ -47,21 +89,32 @@ const resolvers = {
     async createIndividualApplication(root, args, { db }) {
       const { round, city, range, name, mobile, password } = args.input;
 
-      const selectedRoundApplicationsLength = await db
+      const selectedRoundApplications = await db
         .collection('individualApplications')
         .where('round', '==', round)
         .get()
-        .then(snapshot => snapshot.docs.length);
+        .then(snapshot => snapshot.docs.map(doc => doc.data()));
 
-      if (selectedRoundApplicationsLength >= 7) {
+      if (selectedRoundApplications.length >= 7) {
         throw Error('Round is full.');
+      }
+
+      // Finding out new number
+      const numbers = [];
+      selectedRoundApplications.forEach(item => numbers.push(item.number));
+      let newNumber = null;
+      for (let i = 1; i <= 7; i += 1) {
+        if (!numbers.includes(i)) {
+          newNumber = i;
+          break;
+        }
       }
 
       const newApplication = await db
         .collection('individualApplications')
         .add({
           round,
-          number: selectedRoundApplicationsLength + 1,
+          number: newNumber,
           city,
           range,
           name,
@@ -76,8 +129,51 @@ const resolvers = {
 
       return newApplication;
     },
-    updateIndividualApplication(root, args, { db }) {
-      return 'hey';
+
+    async updateIndividualApplication(root, args, { db }) {
+      const { id, input } = args;
+
+      const applicationRef = db.collection('individualApplications').doc(id);
+
+      const applicationSnapshot = await applicationRef.get();
+      if (!applicationSnapshot.exists) {
+        return Error('Application does not exist.');
+      }
+
+      if (input.round) {
+        const selectedRoundApplications = await db
+          .collection('individualApplications')
+          .where('round', '==', input.round)
+          .get()
+          .then(snapshot => snapshot.docs.map(doc => doc.data()));
+
+        if (selectedRoundApplications.length >= 7) {
+          throw Error('Round is full.');
+        }
+
+        // Finding out new number
+        const numbers = [];
+        selectedRoundApplications.forEach(item => numbers.push(item.number));
+        let newNumber = null;
+        for (let i = 1; i <= 7; i += 1) {
+          if (!numbers.includes(i)) {
+            newNumber = i;
+            break;
+          }
+        }
+        input.number = newNumber;
+      }
+
+      await applicationRef.update({
+        ...input
+      });
+
+      const updatedApplicationSnapshot = await applicationRef.get();
+
+      return {
+        id: updatedApplicationSnapshot.id,
+        ...updatedApplicationSnapshot.data()
+      };
     },
     async deleteIndividualApplication(root, args, { db }) {
       const { id, password } = args;
@@ -95,9 +191,9 @@ const resolvers = {
       if (!isPasswordMatch) {
         return Error('Password does not match.');
       }
-      applicationRef.delete();
+      await applicationRef.delete();
       return {
-        id: applicationRef.id,
+        id: applicationSnapshot.id,
         ...data
       };
     },
