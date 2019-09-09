@@ -2,6 +2,7 @@ const { gql } = require('apollo-server');
 
 module.exports = gql`
   type Query {
+    semiproApplication(id: ID!): SemiproApplication!
     semiproApplications: [SemiproApplication!]!
   }
 
@@ -41,6 +42,5 @@ module.exports = gql`
     range: String!
     name: String!
     mobile: String!
-    password: String!
   }
 `;
