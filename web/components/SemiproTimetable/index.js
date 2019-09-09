@@ -40,37 +40,49 @@ export default function SemiproTimetable() {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">9:15</TableCell>
+              <TableCell component="th" align="center">
+                9:15
+              </TableCell>
               <TableCell align="center">1대</TableCell>
               <TableCell align="center">2대</TableCell>
               <TableCell align="center">3대</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">9:30</TableCell>
+              <TableCell component="th" align="center">
+                9:30
+              </TableCell>
               <TableCell align="center">4대</TableCell>
               <TableCell align="center">5대</TableCell>
               <TableCell align="center">6대</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">9:45</TableCell>
+              <TableCell component="th" align="center">
+                9:45
+              </TableCell>
               <TableCell align="center">3대</TableCell>
               <TableCell align="center">1대</TableCell>
               <TableCell align="center">2대</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">10:00</TableCell>
+              <TableCell component="th" align="center">
+                10:00
+              </TableCell>
               <TableCell align="center">6대</TableCell>
               <TableCell align="center">4대</TableCell>
               <TableCell align="center">5대</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">10:15</TableCell>
+              <TableCell component="th" align="center">
+                10:15
+              </TableCell>
               <TableCell align="center">2대</TableCell>
               <TableCell align="center">3대</TableCell>
               <TableCell align="center">1대</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">10:30</TableCell>
+              <TableCell component="th" align="center">
+                10:30
+              </TableCell>
               <TableCell align="center">5대</TableCell>
               <TableCell align="center">6대</TableCell>
               <TableCell align="center">4대</TableCell>

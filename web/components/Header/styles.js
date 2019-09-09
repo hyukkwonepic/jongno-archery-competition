@@ -47,6 +47,8 @@ export const Logo = styled.div`
     @media only screen and (min-width: 960px) {
       display: block;
       margin-right: 2rem;
+      font-weight: 700;
+      color: #444;
     }
   }
 `;
@@ -57,6 +59,7 @@ export const Menu = styled.ul`
   @media only screen and (min-width: 960px) {
     display: block;
     list-style: none;
+    padding: 0;
   }
 
   li {
@@ -76,6 +79,42 @@ export const Menu = styled.ul`
 
     a.active {
       @media only screen and (min-width: 960px) {
+        color: #333;
+      }
+    }
+  }
+`;
+
+export const MobileMenu = styled.div`
+  background: white;
+  height: 5rem;
+  border-top: 0.1rem solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (min-width: 960px) {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin-left: 1rem;
+      margin-right: 1rem;
+
+      a {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #999;
+        text-decoration: none;
+      }
+
+      a.active {
         color: #333;
       }
     }

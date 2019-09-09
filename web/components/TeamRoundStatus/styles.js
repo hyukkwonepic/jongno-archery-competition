@@ -29,7 +29,7 @@ export const TableContainer = styled.div`
   overflow-x: auto;
 
   table {
-    min-width: 150rem;
+    min-width: 80rem;
 
     thead {
       background: #eee;

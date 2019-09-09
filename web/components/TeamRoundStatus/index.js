@@ -42,11 +42,12 @@ function getTableContent({ applications, onDelete, onEdit }) {
     let id = '';
     let city = '';
     let range = '';
-    let player1 = '';
-    let player2 = '';
-    let player3 = '';
-    let player4 = '';
-    let player5 = '';
+    // let player1 = '';
+    // let player2 = '';
+    // let player3 = '';
+    // let player4 = '';
+    // let player5 = '';
+    let players = '';
     let substitute = '';
     let mobile = '';
 
@@ -60,11 +61,10 @@ function getTableContent({ applications, onDelete, onEdit }) {
       id = application.id;
       city = application.city;
       range = application.range;
-      player1 = application.player1;
-      player2 = application.player2;
-      player3 = application.player3;
-      player4 = application.player4;
-      player5 = application.player5;
+      const { player1, player2, player3, player4, player5 } = application;
+      if (player1 && player2 && player3 && player4 && player5) {
+        players = `${player1}, ${player2}, ${player3}, ${player4}, ${player5}`;
+      }
       substitute = application.substitute;
       mobile = hideMobile(application.mobile);
     }
@@ -76,14 +76,12 @@ function getTableContent({ applications, onDelete, onEdit }) {
             <span>{roundStartTime.format('HH:mm')}</span>
           </TableCell>
         ) : null}
-        <TableCell align="center">{round}</TableCell>
+        <TableCell align="center" component="th">
+          {round}
+        </TableCell>
         <TableCell align="center">{city}</TableCell>
         <TableCell align="center">{range}</TableCell>
-        <TableCell align="center">{player1}</TableCell>
-        <TableCell align="center">{player2}</TableCell>
-        <TableCell align="center">{player3}</TableCell>
-        <TableCell align="center">{player4}</TableCell>
-        <TableCell align="center">{player5}</TableCell>
+        <TableCell align="center">{players}</TableCell>
         <TableCell align="center">{substitute}</TableCell>
         <TableCell align="center">{mobile}</TableCell>
         <TableCell align="center">
@@ -124,19 +122,7 @@ function getTableContent({ applications, onDelete, onEdit }) {
             소속 활터
           </TableCell>
           <TableCell align="center" colSpan={1}>
-            선수 1
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            선수 2
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            선수 3
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            선수 4
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            선수 5
+            선수
           </TableCell>
           <TableCell align="center" colSpan={1}>
             예비선수

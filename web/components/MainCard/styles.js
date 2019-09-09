@@ -48,6 +48,7 @@ export const Button = styled.button`
   border: none;
   padding: unset;
   width: 100%;
+  cursor: pointer;
 `;
 
 export const PrimaryButton = styled(Button)`

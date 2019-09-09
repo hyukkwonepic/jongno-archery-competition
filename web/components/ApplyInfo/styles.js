@@ -10,6 +10,8 @@ export const Info = styled.div`
   height: 27rem;
   padding-top: 5rem;
   padding-bottom: 3rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);

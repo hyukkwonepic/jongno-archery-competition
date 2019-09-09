@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .MuiTableCell-root {
-    padding: 1.6rem 1rem;
+    padding: 1.6rem 1rem !important;
   }
 `;
 
