@@ -1,1 +1,1 @@
-export { default } from '../../../views/SemiproDetail';
+export { default } from '../../../views/SemiproEdit';

@@ -34,7 +34,8 @@ function Semipro() {
           type: 'semipro',
           id,
           password
-        }
+        },
+        fetchPolicy: 'network-only'
       });
 
       if (data) {

@@ -34,7 +34,8 @@ function Individual() {
           type: 'individual',
           id,
           password
-        }
+        },
+        fetchPolicy: 'network-only'
       });
 
       if (data) {

@@ -27,20 +27,31 @@ function getOptions() {
   return options;
 }
 
-export default function SemiproApplyForm({ onSubmit }) {
+export default function SemiproEditForm({ application, onSubmit }) {
+  const initialValues = {
+    name: '',
+    range: '',
+    city: '',
+    mobile: '',
+    round: ''
+  };
+
+  if (application) {
+    const { round, city, range, name, mobile } = application;
+
+    initialValues.name = name;
+    initialValues.range = range;
+    initialValues.city = city;
+    initialValues.round = round;
+    initialValues.mobile = mobile;
+  }
+
   return (
     <S.Form>
-      <h2>실업부 신청하기</h2>
+      <h2>신청내역 수정하기</h2>
       <Formik
-        initialValues={{
-          name: '',
-          range: '',
-          city: '',
-          mobile: '',
-          round: '',
-          password: '',
-          confirmPassword: ''
-        }}
+        enableReinitialize
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required('이름을 입력해 주세요.'),
           range: Yup.string().required('소속 활터를 입력해 주세요.'),
@@ -51,13 +62,7 @@ export default function SemiproApplyForm({ onSubmit }) {
               /^([0-9]{3})([0-9]{3,4})([0-9]{4})$/,
               '유효하지 않은 휴대폰 번호 입니다.'
             ),
-          round: Yup.string().required('작대를 선택해 주세요.'),
-          password: Yup.string()
-            .required('비밀번호를 입력해 주세요.')
-            .min(4, '최소 4자 이상 입력해 주세요.'),
-          confirmPassword: Yup.string()
-            .required('비밀번호 확인을 입력해 주세요.')
-            .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
+          round: Yup.string().required('작대를 선택해 주세요.')
         })}
         onSubmit={(values, { setSubmitting }) => {
           onSubmit(values);
@@ -106,27 +111,8 @@ export default function SemiproApplyForm({ onSubmit }) {
                 <ErrorMessage name="round" component="span" />
               </div>
 
-              <div>
-                <label htmlFor="password">
-                  비밀번호
-                  <span>(신청 내용 수정/삭제에 사용합니다)</span>
-                </label>
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="4자 이상 입력해 주세요."
-                />
-                <ErrorMessage name="password" component="span" />
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword">비밀번호 확인</label>
-                <Field type="password" name="confirmPassword" />
-                <ErrorMessage name="confirmPassword" component="span" />
-              </div>
-
               <button type="submit" disabled={isSubmitting}>
-                등록하기
+                수정하기
               </button>
             </Form>
           );

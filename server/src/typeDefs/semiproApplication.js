@@ -37,10 +37,10 @@ module.exports = gql`
   }
 
   input SemiproApplicationUpdateInput {
-    round: Int!
-    city: String!
-    range: String!
-    name: String!
-    mobile: String!
+    round: Int
+    city: String
+    range: String
+    name: String
+    mobile: String
   }
 `;
