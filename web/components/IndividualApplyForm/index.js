@@ -1,8 +1,60 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import moment from 'moment-timezone';
 
 import * as S from './styles';
+
+function getFirstDayRoundOptions() {
+  const firstDayRoundOptions = [];
+  const firstDayBaseTime = '2019-09-21 07:00';
+  for (let i = 0; i < 9; i += 1) {
+    const round = i + 1;
+    const roundStartTime = moment
+      .tz(firstDayBaseTime, 'Asia/Seoul')
+      .add((15 * Math.floor((round - 1) / 3)).toString(), 'minutes');
+
+    firstDayRoundOptions.push(
+      <option
+        key={i}
+        value={round}
+        // disabled={false}
+      >
+        {round}대 ({roundStartTime.format('hh:mm')} 개사)
+      </option>
+    );
+  }
+  return firstDayRoundOptions;
+}
+
+function getSecondDayRoundOptions() {
+  const secondDayRoundOptions = [];
+  const secondDayBaseTime = '2019-09-22 07:00';
+  for (let i = 9; i < 45; i += 1) {
+    const round = i + 1;
+    const startRound = 10;
+    const roundGroup = Math.floor((round - startRound) / 9);
+    const zoneTime = moment
+      .tz(secondDayBaseTime, 'Asia/Seoul')
+      .add(2 * roundGroup, 'hours')
+      .add(15 * roundGroup, 'minutes')
+      .format('YYYY-MM-DD HH:mm');
+    const roundStartTime = moment
+      .tz(zoneTime, 'Asia/Seoul')
+      .add(
+        (15 * Math.floor((round - Number(roundGroup * 9) - 10) / 3)).toString(),
+        'minutes'
+      );
+
+    secondDayRoundOptions.push(
+      <option value={round} key={i}>
+        {round}대 ({roundStartTime.format('hh:mm')} 개사)
+      </option>
+    );
+  }
+
+  return secondDayRoundOptions;
+}
 
 export default function IndividualApplyForm({ onSubmit }) {
   return (
@@ -105,30 +157,14 @@ export default function IndividualApplyForm({ onSubmit }) {
                       <option value="" disabled>
                         작대를 선택해 주세요
                       </option>
-                      <option value="1">1대 (07:00 개사)</option>
-                      <option value="2">2대 (07:00 개사)</option>
-                      <option value="3">3대 (07:00 개사)</option>
-                      <option value="4">4대 (07:15 개사)</option>
-                      <option value="5">5대 (07:15 개사)</option>
-                      <option value="6">6대 (07:15 개사)</option>
-                      <option value="7">7대 (07:30 개사)</option>
-                      <option value="8">8대 (07:30 개사)</option>
-                      <option value="9">9대 (07:30 개사)</option>
+                      {getFirstDayRoundOptions()}
                     </>
                   ) : (
                     <>
                       <option value="" disabled>
                         작대를 선택해 주세요
                       </option>
-                      <option value="1">10대 (07:00 개사)</option>
-                      <option value="2">11대 (07:00 개사)</option>
-                      <option value="3">12대 (07:00 개사)</option>
-                      <option value="4">13대 (07:15 개사)</option>
-                      <option value="5">14대 (07:15 개사)</option>
-                      <option value="6">15대 (07:15 개사)</option>
-                      <option value="7">16대 (07:30 개사)</option>
-                      <option value="8">17대 (07:30 개사)</option>
-                      <option value="9">18대 (07:30 개사)</option>
+                      {getSecondDayRoundOptions()}
                     </>
                   )}
                 </Field>
