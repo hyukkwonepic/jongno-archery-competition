@@ -2,6 +2,7 @@ const { gql } = require('apollo-server');
 
 module.exports = gql`
   type Query {
+    teamApplication(id: ID!): TeamApplication!
     teamApplications: [TeamApplication!]!
   }
 
@@ -43,16 +44,15 @@ module.exports = gql`
   }
 
   input TeamApplicationUpdateInput {
-    round: Int!
-    city: String!
-    range: String!
-    player1: String!
-    player2: String!
-    player3: String!
-    player4: String!
-    player5: String!
-    substitute: String!
-    mobile: String!
-    password: String!
+    round: Int
+    city: String
+    range: String
+    player1: String
+    player2: String
+    player3: String
+    player4: String
+    player5: String
+    substitute: String
+    mobile: String
   }
 `;

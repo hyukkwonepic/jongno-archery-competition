@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import moment from 'moment-timezone';
 
 import Table from '@material-ui/core/Table';

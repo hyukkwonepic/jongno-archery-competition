@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
   #root {
     height: 100%;
   }
+
+  .MuiTableCell-root {
+    padding: 1.6rem 1rem;
+  }
 `;
 
 export default GlobalStyle;

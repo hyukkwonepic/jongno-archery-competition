@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import moment from 'moment-timezone';
 
 import Table from '@material-ui/core/Table';
@@ -13,7 +12,18 @@ import * as S from './styles';
 import EditSVG from '../../assets/EditSVG';
 import CancelSVG from '../../assets/CancelSVG';
 
-function getTableContent() {
+function hideMobile(mobile) {
+  if (mobile) {
+    return (
+      mobile.split(mobile.substring(mobile.length - 4, mobile.length))[0] +
+      '****'
+    );
+  }
+
+  return '';
+}
+
+function getTableContent({ applications, onDelete, onEdit }) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -28,6 +38,37 @@ function getTableContent() {
     );
 
     const isFirstNumber = i % 3 === 0;
+
+    let id = '';
+    let city = '';
+    let range = '';
+    let player1 = '';
+    let player2 = '';
+    let player3 = '';
+    let player4 = '';
+    let player5 = '';
+    let substitute = '';
+    let mobile = '';
+
+    const application = applications.find(item => {
+      if (item.round === round) {
+        return item;
+      }
+    });
+
+    if (application) {
+      id = application.id;
+      city = application.city;
+      range = application.range;
+      player1 = application.player1;
+      player2 = application.player2;
+      player3 = application.player3;
+      player4 = application.player4;
+      player5 = application.player5;
+      substitute = application.substitute;
+      mobile = hideMobile(application.mobile);
+    }
+
     tableRows.push(
       <TableRow key={i}>
         {isFirstNumber ? (
@@ -36,24 +77,22 @@ function getTableContent() {
           </TableCell>
         ) : null}
         <TableCell align="center">{round}</TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="center"></TableCell>
+        <TableCell align="center">{city}</TableCell>
+        <TableCell align="center">{range}</TableCell>
+        <TableCell align="center">{player1}</TableCell>
+        <TableCell align="center">{player2}</TableCell>
+        <TableCell align="center">{player3}</TableCell>
+        <TableCell align="center">{player4}</TableCell>
+        <TableCell align="center">{player5}</TableCell>
+        <TableCell align="center">{substitute}</TableCell>
+        <TableCell align="center">{mobile}</TableCell>
         <TableCell align="center">
-          <Link href="/individual/1234">
-            <a>
-              <EditSVG />
-            </a>
-          </Link>
+          <button type="button" onClick={id ? () => onEdit(id) : null}>
+            <EditSVG />
+          </button>
         </TableCell>
         <TableCell align="center">
-          <button type="button">
+          <button type="button" onClick={id ? () => onDelete(id) : null}>
             <CancelSVG />
           </button>
         </TableCell>
@@ -66,7 +105,7 @@ function getTableContent() {
       <TableHead>
         <TableRow>
           <TableCell colSpan="13" align="center">
-            실업부 9월 21일(토) 1 ~ 6대
+            단체전 9월 21일(토) 1 ~ 60대
           </TableCell>
         </TableRow>
       </TableHead>
@@ -118,14 +157,24 @@ function getTableContent() {
   );
 }
 
-export default function TeamRoundStatus() {
+export default function TeamRoundStatus({ applications, onDelete, onEdit }) {
   return (
     <S.TeamRound>
       <h2>작대 현황</h2>
 
       <S.TableContainer>
-        <Table>{getTableContent()}</Table>
+        <Table>
+          {getTableContent({
+            applications,
+            onDelete,
+            onEdit
+          })}
+        </Table>
       </S.TableContainer>
     </S.TeamRound>
   );
 }
+
+TeamRoundStatus.defaultProps = {
+  applications: []
+};

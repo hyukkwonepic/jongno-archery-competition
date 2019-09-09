@@ -126,7 +126,7 @@ export default function SemiproApplyForm({ onSubmit }) {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                등록하기
+                신청하기
               </button>
             </Form>
           );

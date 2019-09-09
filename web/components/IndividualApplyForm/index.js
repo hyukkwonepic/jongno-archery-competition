@@ -191,7 +191,7 @@ export default function IndividualApplyForm({ onSubmit }) {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                등록하기
+                신청하기
               </button>
             </Form>
           );
