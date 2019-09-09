@@ -37,7 +37,7 @@ module.exports = {
       const { round, city, range, name, mobile, password } = args.input;
 
       const selectedRoundApplications = await db
-        .collection('semiproApplication')
+        .collection('semiproApplications')
         .where('round', '==', round)
         .get()
         .then(snapshot => snapshot.docs.map(doc => doc.data()));
@@ -58,7 +58,7 @@ module.exports = {
       }
 
       const newApplication = await db
-        .collection('semiproApplication')
+        .collection('semiproApplications')
         .add({
           round,
           number: newNumber,
