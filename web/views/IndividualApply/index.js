@@ -1,5 +1,5 @@
 import React from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import Grid from '@material-ui/core/Grid';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -13,6 +13,7 @@ import * as Q from './queries';
 import * as IndividualQ from '../Individual/queries';
 
 function IndividualApply() {
+  const router = useRouter();
   const [createApplication] = useMutation(Q.CREATE_INDIVIDUAL_APPLICATION);
 
   const handleApplyFormSubmit = async ({
@@ -55,7 +56,7 @@ function IndividualApply() {
         }
       });
       window.alert('성공적으로 등록되었습니다!');
-      Router.push({
+      router.push({
         pathname: '/individual'
       });
     } catch (e) {

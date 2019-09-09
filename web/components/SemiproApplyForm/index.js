@@ -1,10 +1,33 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import moment from 'moment-timezone';
 
 import * as S from './styles';
 
-export default function SemiproApplyForm() {
+function getOptions() {
+  const options = [];
+  const baseTime = '2019-09-21 09:15';
+  for (let i = 0; i < 9; i += 1) {
+    const round = i + 1;
+    const roundStartTime = moment
+      .tz(baseTime, 'Asia/Seoul')
+      .add((15 * Math.floor((round - 1) / 3)).toString(), 'minutes');
+
+    options.push(
+      <option
+        key={i}
+        value={round}
+        // disabled={false}
+      >
+        {round}대 ({roundStartTime.format('hh:mm')} 개사)
+      </option>
+    );
+  }
+  return options;
+}
+
+export default function SemiproApplyForm({ onSubmit }) {
   return (
     <S.Form>
       <h2>실업부 신청하기</h2>
@@ -14,7 +37,6 @@ export default function SemiproApplyForm() {
           range: '',
           city: '',
           mobile: '',
-          date: '',
           round: '',
           password: '',
           confirmPassword: ''
@@ -29,7 +51,6 @@ export default function SemiproApplyForm() {
               /^([0-9]{3})([0-9]{3,4})([0-9]{4})$/,
               '유효하지 않은 휴대폰 번호 입니다.'
             ),
-          date: Yup.string().required('날짜를 선택해 주세요.'),
           round: Yup.string().required('작대를 선택해 주세요.'),
           password: Yup.string()
             .required('비밀번호를 입력해 주세요.')
@@ -39,10 +60,8 @@ export default function SemiproApplyForm() {
             .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            window.alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          onSubmit(values);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => {
@@ -82,12 +101,7 @@ export default function SemiproApplyForm() {
                   <option value="" disabled>
                     작대를 선택해 주세요
                   </option>
-                  <option value="1">1대 (09:15 개사)</option>
-                  <option value="2">2대 (09:15 개사)</option>
-                  <option value="3">3대 (09:15 개사)</option>
-                  <option value="4">4대 (09:30 개사)</option>
-                  <option value="5">5대 (09:30 개사)</option>
-                  <option value="6">6대 (09:30 개사)</option>
+                  {getOptions()}
                 </Field>
                 <ErrorMessage name="round" component="span" />
               </div>
@@ -112,7 +126,7 @@ export default function SemiproApplyForm() {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                신청하기
+                등록하기
               </button>
             </Form>
           );
