@@ -259,7 +259,7 @@ export default function IndividualRoundStatus({
   });
 
   return (
-    <S.IndividualRound>
+    <S.Round>
       <h2>작대 현황</h2>
 
       <S.TableContainer>
@@ -276,7 +276,7 @@ export default function IndividualRoundStatus({
           })}
         </Table>
       </S.TableContainer>
-    </S.IndividualRound>
+    </S.Round>
   );
 }
 

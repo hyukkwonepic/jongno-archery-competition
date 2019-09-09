@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const IndividualRound = styled.div`
+export const Round = styled.div`
   width: 100%;
   background: white;
   padding: 5rem 2rem;
