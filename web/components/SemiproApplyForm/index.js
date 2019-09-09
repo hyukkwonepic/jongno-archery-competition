@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
 
+import Progress from '../Progress';
+
 import * as S from './styles';
 
 function getOptions() {
@@ -60,8 +62,9 @@ export default function SemiproApplyForm({ onSubmit }) {
             .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
         })}
         onSubmit={(values, { setSubmitting }) => {
-          onSubmit(values);
-          setSubmitting(false);
+          onSubmit(values).then(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => {
@@ -126,7 +129,7 @@ export default function SemiproApplyForm({ onSubmit }) {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                신청하기
+                {isSubmitting ? <Progress size={22} /> : '신청하기'}
               </button>
             </Form>
           );

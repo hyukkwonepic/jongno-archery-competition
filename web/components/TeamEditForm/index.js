@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
 
+import Progress from '../Progress';
+
 import * as S from './styles';
 
 function getOptions() {
@@ -92,8 +94,9 @@ export default function TeamEditForm({ application, onSubmit }) {
           round: Yup.string().required('작대를 선택해 주세요.')
         })}
         onSubmit={(values, { setSubmitting }) => {
-          onSubmit(values);
-          setSubmitting(false);
+          onSubmit(values).then(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => {
@@ -169,7 +172,7 @@ export default function TeamEditForm({ application, onSubmit }) {
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                수정하기
+                {isSubmitting ? <Progress size={22} /> : '수정하기'}
               </button>
             </Form>
           );
