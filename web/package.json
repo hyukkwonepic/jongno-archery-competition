@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "clean": "rimraf dist"
+    "serve": "firebase serve --only functions:web",
+    "deploy": "firebase deploy --only functions:web"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
@@ -16,6 +17,9 @@
     "apollo-client": "^2.6.4",
     "apollo-link-http": "^1.5.16",
     "date-fns": "^2.0.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.5.0",
+    "firebase-functions": "^3.2.0",
     "formik": "^1.5.8",
     "graphql": "^14.5.4",
     "graphql-tag": "^2.10.1",
@@ -25,12 +29,16 @@
     "next": "9.0.5",
     "react": "16.9.0",
     "react-dom": "16.9.0",
+    "styled-components": "^4.3.2",
     "yup": "^0.27.0"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.2.2",
     "eslint-plugin-react": "^7.14.3",
-    "styled-components": "^4.3.2"
+    "nodemon": "^1.19.2"
+  },
+  "engines": {
+    "node": "8"
   }
 }
