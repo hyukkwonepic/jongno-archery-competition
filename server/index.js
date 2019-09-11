@@ -1,8 +1,5 @@
-const { ApolloServer } = require('apollo-server');
-const serverOption = require('./src');
+const functions = require('firebase-functions');
 
-const server = new ApolloServer(serverOption);
+const app = require('./src');
 
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+exports.graphql = functions.https.onRequest(app);

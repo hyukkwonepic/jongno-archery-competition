@@ -4,24 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest --watchAll --verbose"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "deploy": "firebase deploy --only functions:graphql",
+    "serve": "firebase serve --only functions:graphql"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@now/node": "^1.0.0",
     "eslint": "^6.2.2",
     "jest": "^24.9.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
     "apollo-server": "^2.9.0",
-    "apollo-server-micro": "^2.9.3",
+    "apollo-server-express": "^2.9.3",
     "firebase-admin": "^8.5.0",
+    "firebase-functions": "^3.2.0",
     "graphql": "^14.5.3",
     "merge-graphql-schemas": "^1.7.0"
+  },
+  "engines": {
+    "node": "8"
   }
 }
