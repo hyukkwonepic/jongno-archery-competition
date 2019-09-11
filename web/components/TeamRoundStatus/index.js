@@ -73,11 +73,11 @@ function getTableContent({ applications, onDelete, onEdit }) {
       <TableRow key={i}>
         {isFirstNumber ? (
           <TableCell align="center" rowSpan={3} component="th" scope="row">
-            <span>{roundStartTime.format('HH:mm')}</span>
+            <strong>{roundStartTime.format('HH:mm')}</strong>
           </TableCell>
         ) : null}
         <TableCell align="center" component="th">
-          {round}
+          <strong>{round}</strong>
         </TableCell>
         <TableCell align="center">{city}</TableCell>
         <TableCell align="center">{range}</TableCell>
@@ -85,14 +85,18 @@ function getTableContent({ applications, onDelete, onEdit }) {
         <TableCell align="center">{substitute}</TableCell>
         <TableCell align="center">{mobile}</TableCell>
         <TableCell align="center">
-          <button type="button" onClick={id ? () => onEdit(id) : null}>
-            <EditSVG />
-          </button>
+          {application && (
+            <button type="button" onClick={id ? () => onEdit(id) : null}>
+              <EditSVG />
+            </button>
+          )}
         </TableCell>
         <TableCell align="center">
-          <button type="button" onClick={id ? () => onDelete(id) : null}>
-            <CancelSVG />
-          </button>
+          {application && (
+            <button type="button" onClick={id ? () => onDelete(id) : null}>
+              <CancelSVG />
+            </button>
+          )}
         </TableCell>
       </TableRow>
     );

@@ -86,14 +86,18 @@ function getTableContent({ applications, onDelete, onEdit }) {
           {mobile}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <button type="button" onClick={id ? () => onEdit(id) : null}>
-            <EditSVG />
-          </button>
+          {application && (
+            <button type="button" onClick={id ? () => onEdit(id) : null}>
+              <EditSVG />
+            </button>
+          )}
         </TableCell>
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          <button type="button" onClick={id ? () => onDelete(id) : null}>
-            <CancelSVG />
-          </button>
+          {application && (
+            <button type="button" onClick={id ? () => onDelete(id) : null}>
+              <CancelSVG />
+            </button>
+          )}
         </TableCell>
       </TableRow>
     );
