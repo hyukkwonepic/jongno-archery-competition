@@ -138,7 +138,7 @@ function Individual() {
           </Grid>
           <Grid item xs={12} md={12}>
             <IndividualRoundStatus
-              applications={data.individualApplications}
+              applications={data && data.individualApplications}
               onEdit={handleEditApplication}
               onDelete={handleDeleteApplication}
             />

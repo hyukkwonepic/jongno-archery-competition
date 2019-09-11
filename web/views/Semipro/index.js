@@ -134,7 +134,7 @@ function Semipro() {
           </Grid>
           <Grid item xs={12} md={12}>
             <SemiproRoundStatus
-              applications={data.semiproApplications}
+              applications={data && data.semiproApplications}
               onEdit={handleEditApplication}
               onDelete={handleDeleteApplication}
             />

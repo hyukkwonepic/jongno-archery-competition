@@ -134,7 +134,7 @@ function Team() {
           </Grid>
           <Grid item xs={12} md={12}>
             <TeamRoundStatus
-              applications={data.teamApplications}
+              applications={data && data.teamApplications}
               onEdit={handleEditApplication}
               onDelete={handleDeleteApplication}
             />
