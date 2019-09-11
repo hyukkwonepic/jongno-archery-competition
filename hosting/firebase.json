@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "/",
+    "rewrites": [
+      {
+        "source": "/graphql",
+        "function": "graphql"
+      },
+      {
+        "source": "**/**",
+        "function": "web"
+      }
+    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
