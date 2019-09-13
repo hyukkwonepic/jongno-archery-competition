@@ -116,7 +116,7 @@ module.exports = {
       };
     },
 
-    async deleteTeamApplication(root, args, { db }) {
+    async deleteTeamApplication(root, args, { req, db }) {
       const { id, password } = args;
 
       const applicationRef = db.collection('teamApplications').doc(id);
@@ -129,7 +129,7 @@ module.exports = {
       const data = applicationSnapshot.data();
       const isPasswordMatch = data.password === password;
 
-      if (!isPasswordMatch) {
+      if (!req.session && !isPasswordMatch) {
         return Error('Password does not match.');
       }
       await applicationRef.delete();

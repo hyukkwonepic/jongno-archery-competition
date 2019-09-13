@@ -121,7 +121,7 @@ module.exports = {
         ...updatedApplicationSnapshot.data()
       };
     },
-    async deleteSemiproApplication(root, args, { db }) {
+    async deleteSemiproApplication(root, args, { req, db }) {
       const { id, password } = args;
 
       const applicationRef = db.collection('semiproApplications').doc(id);
@@ -134,7 +134,7 @@ module.exports = {
       const data = applicationSnapshot.data();
       const isPasswordMatch = data.password === password;
 
-      if (!isPasswordMatch) {
+      if (!req.session && !isPasswordMatch) {
         return Error('Password does not match.');
       }
       await applicationRef.delete();
