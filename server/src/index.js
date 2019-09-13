@@ -1,17 +1,40 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const { db } = require('../firebase/index');
+const cookieParser = require('cookie-parser');
+const { db, auth } = require('../firebase/index');
 
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 
 const app = express();
+
+app.use(cookieParser());
+
+app.use(async (req, res, next) => {
+  const sessionCookie = req.cookies.session;
+
+  if (sessionCookie) {
+    try {
+      const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
+      req.session = decodedClaims;
+    } catch (e) {
+      console.log(e);
+      res.clearCookie('session');
+    }
+  }
+
+  next();
+});
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
+  context: ({ req, res }) => {
     return {
-      db
+      req,
+      res,
+      db,
+      auth
     };
   },
   // Enable graphiql gui
@@ -19,6 +42,13 @@ const apolloServer = new ApolloServer({
   playground: true
 });
 
-apolloServer.applyMiddleware({ app, path: '/', cors: true });
+apolloServer.applyMiddleware({
+  app,
+  path: '/',
+  cors: {
+    credentials: true,
+    origin: true
+  }
+});
 
 module.exports = app;
