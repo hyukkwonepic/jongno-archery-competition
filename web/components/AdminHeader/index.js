@@ -18,7 +18,7 @@ export default function AdminHeader() {
 
   return (
     <S.AdminHeader>
-      <span>관리자 모드로 접속중 입니다.</span>
+      <span>관리자 모드로 접속중 입니다</span>
       <button type="button" onClick={handleLogout}>
         로그아웃
       </button>
