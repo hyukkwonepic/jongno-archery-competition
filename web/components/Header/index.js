@@ -45,7 +45,7 @@ export default function Header() {
             </a>
           </Link>
           <span>|</span>
-          <span>제 9회 종로 전국 활쏘기 대회</span>
+          <span>제9회 종로 전국 활쏘기 대회</span>
         </S.Logo>
         <S.Menu>{lists}</S.Menu>
       </S.Container>

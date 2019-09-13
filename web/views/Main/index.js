@@ -13,7 +13,7 @@ function Main({ isLoggedIn }) {
     <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>
-          제 9회 종로 전국 활쏘기 대회
+          제9회 종로 전국 활쏘기 대회
           <br />
           <span>(시간 작대)</span>
         </S.Title>
