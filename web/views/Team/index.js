@@ -62,10 +62,14 @@ function Team({ isLoggedIn }) {
 
   const handleDeleteApplication = async id => {
     try {
-      const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
-      if (!password) {
-        return;
+      let password = '';
+      if (!isLoggedIn) {
+        password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
+        if (!password) {
+          return;
+        }
       }
+
       const confirm = window.confirm('정말로 삭제하시겠습니까?');
       if (!confirm) {
         return;
