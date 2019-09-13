@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import IndividualApplyForm from '../../components/IndividualApplyForm';
@@ -12,7 +13,7 @@ import * as S from './styles';
 import * as Q from './queries';
 import * as IndividualQ from '../Individual/queries';
 
-function IndividualApply() {
+function IndividualApply({ isLoggedIn }) {
   const router = useRouter();
   const [createApplication] = useMutation(Q.CREATE_INDIVIDUAL_APPLICATION);
 
@@ -74,7 +75,7 @@ function IndividualApply() {
   };
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>개인전</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -87,4 +88,4 @@ function IndividualApply() {
   );
 }
 
-export default withApollo(IndividualApply);
+export default withApollo(withAuth(IndividualApply));

@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
+
 import Grid from '@material-ui/core/Grid';
 import Layout from '../../components/Layout';
 import SemiproTimetable from '../../components/SemiproTimetable';
 import * as S from './styles';
 
-export default function SemiproSchedule() {
+function SemiproSchedule({ isLoggedIn }) {
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>실업부</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -19,3 +22,5 @@ export default function SemiproSchedule() {
     </Layout>
   );
 }
+
+export default withApollo(withAuth(SemiproSchedule));

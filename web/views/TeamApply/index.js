@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import TeamApplyForm from '../../components/TeamApplyForm';
@@ -12,7 +13,7 @@ import * as S from './styles';
 import * as Q from './queries';
 import * as TeamQ from '../Team/queries';
 
-function TeamApply() {
+function TeamApply({ isLoggedIn }) {
   const router = useRouter();
   const [createApplication] = useMutation(Q.CREATE_TEAM_APPLICATION);
 
@@ -82,7 +83,7 @@ function TeamApply() {
   };
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>단체전</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -95,4 +96,4 @@ function TeamApply() {
   );
 }
 
-export default withApollo(TeamApply);
+export default withApollo(withAuth(TeamApply));

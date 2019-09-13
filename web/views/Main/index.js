@@ -1,14 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import MainCard from '../../components/MainCard';
 
 import * as S from './styles';
 
-function Main() {
+function Main({ isLoggedIn }) {
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>
           제 9회 종로 전국 활쏘기 대회
@@ -63,4 +65,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default withApollo(withAuth(Main));

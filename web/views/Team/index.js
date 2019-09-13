@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { useRouter } from 'next/router';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import TeamRoundStatus from '../../components/TeamRoundStatus';
@@ -12,7 +13,7 @@ import ApplyInfo from '../../components/ApplyInfo';
 import * as S from './styles';
 import * as Q from './queries';
 
-function Team() {
+function Team({ isLoggedIn }) {
   const router = useRouter();
   const client = useApolloClient();
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
@@ -110,7 +111,7 @@ function Team() {
   };
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>단체전</S.Title>
         <Grid container spacing={2}>
@@ -145,4 +146,4 @@ function Team() {
   );
 }
 
-export default withApollo(Team);
+export default withApollo(withAuth(Team));

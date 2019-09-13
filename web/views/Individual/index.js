@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { useRouter } from 'next/router';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import IndividualRoundStatus from '../../components/IndividualRoundStatus';
@@ -12,7 +13,7 @@ import ApplyInfo from '../../components/ApplyInfo';
 import * as S from './styles';
 import * as Q from './queries';
 
-function Individual() {
+function Individual({ isLoggedIn }) {
   const router = useRouter();
   const client = useApolloClient();
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
@@ -61,10 +62,14 @@ function Individual() {
 
   const handleDeleteApplication = async id => {
     try {
-      const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
-      if (!password) {
-        return;
+      let password = '';
+      if (!isLoggedIn) {
+        password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
+        if (!password) {
+          return;
+        }
       }
+
       const confirm = window.confirm('정말로 삭제하시겠습니까?');
       if (!confirm) {
         return;
@@ -110,7 +115,7 @@ function Individual() {
   };
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>개인전</S.Title>
         <Grid container spacing={2}>
@@ -149,4 +154,4 @@ function Individual() {
   );
 }
 
-export default withApollo(Individual);
+export default withApollo(withAuth(Individual));

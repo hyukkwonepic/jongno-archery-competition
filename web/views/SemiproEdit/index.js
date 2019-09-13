@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import SemiproEditForm from '../../components/SemiproEditForm';
@@ -12,7 +13,7 @@ import * as S from './styles';
 import * as Q from './queries';
 import * as SemiproQ from '../Semipro/queries';
 
-function SemiproEdit() {
+function SemiproEdit({ isLoggedIn }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -115,7 +116,7 @@ function SemiproEdit() {
   }
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>실업부</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -131,4 +132,4 @@ function SemiproEdit() {
   );
 }
 
-export default withApollo(SemiproEdit);
+export default withApollo(withAuth(SemiproEdit));

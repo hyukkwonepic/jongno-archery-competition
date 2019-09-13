@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
+
 import Grid from '@material-ui/core/Grid';
 import Layout from '../../components/Layout';
 import IndividualTimetable from '../../components/IndividualTimetable';
 import * as S from './styles';
 
-export default function IndividualSchedule() {
+function IndividualSchedule({ isLoggedIn }) {
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>개인전</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -19,3 +22,5 @@ export default function IndividualSchedule() {
     </Layout>
   );
 }
+
+export default withApollo(withAuth(IndividualSchedule));

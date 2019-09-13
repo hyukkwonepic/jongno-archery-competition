@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import IndividualEditForm from '../../components/IndividualEditForm';
@@ -12,7 +13,7 @@ import * as S from './styles';
 import * as Q from './queries';
 import * as IndividualQ from '../Individual/queries';
 
-function IndividualEdit() {
+function IndividualEdit({ isLoggedIn }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -115,7 +116,7 @@ function IndividualEdit() {
   }
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>개인전</S.Title>
         <Grid container justify="center" spacing={2}>
@@ -131,4 +132,4 @@ function IndividualEdit() {
   );
 }
 
-export default withApollo(IndividualEdit);
+export default withApollo(withAuth(IndividualEdit));

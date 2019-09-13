@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { useRouter } from 'next/router';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import SemiproRoundStatus from '../../components/SemiproRoundStatus';
@@ -12,7 +13,7 @@ import ApplyInfo from '../../components/ApplyInfo';
 import * as S from './styles';
 import * as Q from './queries';
 
-function Semipro() {
+function Semipro({ isLoggedIn }) {
   const router = useRouter();
   const client = useApolloClient();
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
@@ -110,7 +111,7 @@ function Semipro() {
   };
 
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn}>
       <S.Content>
         <S.Title>실업부</S.Title>
         <Grid container spacing={2}>
@@ -145,4 +146,4 @@ function Semipro() {
   );
 }
 
-export default withApollo(Semipro);
+export default withApollo(withAuth(Semipro));
