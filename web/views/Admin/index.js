@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { auth } from '../../lib/firebase';
 import { withApollo } from '../../lib/apollo';
 
+import * as S from './styles';
+
 function Admin() {
   const client = useApolloClient();
   const router = useRouter();
@@ -36,6 +38,7 @@ function Admin() {
 
       router.push('/');
     } catch (e) {
+      window.alert('이메일 또는 비밀번호가 일치하지 않습니다.');
       console.log(e);
     }
   };
@@ -51,13 +54,14 @@ function Admin() {
       });
 
       console.log('cookie cleared!');
+      router.push('/');
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <div>
+    <S.Admin>
       <form onSubmit={handleLogin}>
         <div>
           <label htmlFor="email">이메일</label>
@@ -70,12 +74,11 @@ function Admin() {
         </div>
 
         <button type="submit">관리자 로그인</button>
+        <button type="button" onClick={handleLogout}>
+          로그아웃
+        </button>
       </form>
-
-      <button type="button" onClick={handleLogout}>
-        로그아웃
-      </button>
-    </div>
+    </S.Admin>
   );
 }
 
