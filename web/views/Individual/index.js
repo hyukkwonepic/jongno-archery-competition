@@ -22,21 +22,48 @@ function Individual({ isLoggedIn }) {
 
   const [deleteApplication] = useMutation(Q.DELETE_INDIVIDUAL_APPLICATION);
 
+  const handleError = e => {
+    const { message } = e;
+    switch (message) {
+      case 'GraphQL error: Password does not match.': {
+        window.alert('비밀번호가 일치하지 않습니다.');
+        break;
+      }
+      default: {
+        window.alert('오류가 발생했습니다. 다시 시도해 주세요.');
+      }
+    }
+  };
+
+  const requestValidateApplicationPassword = ({ id, password }) => {
+    return client.query({
+      query: Q.VALIDATE_APPLICATION_PASSWORD,
+      variables: {
+        type: 'individual',
+        id,
+        password
+      },
+      fetchPolicy: 'network-only'
+    });
+  };
+
+  const handleAdminEditApplicaiton = id => {
+    router.push({
+      pathname: `/individual/${id}`
+    });
+  };
+
   const handleEditApplication = async id => {
     try {
-      const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
+      let password = '';
+      password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
       if (!password) {
         return;
       }
 
-      const { data } = await client.query({
-        query: Q.VALIDATE_APPLICATION_PASSWORD,
-        variables: {
-          type: 'individual',
-          id,
-          password
-        },
-        fetchPolicy: 'network-only'
+      const { data } = await requestValidateApplicationPassword({
+        id,
+        password
       });
 
       if (data) {
@@ -50,67 +77,68 @@ function Individual({ isLoggedIn }) {
         }
       }
     } catch (e) {
-      console.log(e);
-      const { message } = e;
-      switch (message) {
-        default: {
-          window.alert('오류가 발생했습니다. 다시 시도해 주세요.');
+      handleError(e);
+    }
+  };
+
+  const requestDeleteApplication = ({ id, password }) => {
+    return deleteApplication({
+      variables: {
+        id,
+        password
+      },
+      update(
+        cache,
+        {
+          data: { deleteIndividualApplication }
         }
+      ) {
+        const { individualApplications } = cache.readQuery({
+          query: Q.INDIVIDUAL_APPLICATIONS
+        });
+        cache.writeQuery({
+          query: Q.INDIVIDUAL_APPLICATIONS,
+          data: {
+            individualApplications: individualApplications.filter(
+              item => item.id !== deleteIndividualApplication.id
+            )
+          }
+        });
       }
+    });
+  };
+
+  const handleAdminDeleteApplication = async id => {
+    try {
+      const confirm = window.confirm('정말로 삭제하시겠습니까?');
+      if (!confirm) {
+        return;
+      }
+      await requestDeleteApplication({ id, password: '' });
+
+      window.alert('성공적으로 삭제되었습니다!');
+    } catch (e) {
+      handleError(e);
     }
   };
 
   const handleDeleteApplication = async id => {
     try {
-      let password = '';
-      if (!isLoggedIn) {
-        password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
-        if (!password) {
-          return;
-        }
+      const password = window.prompt('신청시 작성한 비밀번호를 입력해 주세요.');
+      if (!password) {
+        return;
       }
 
       const confirm = window.confirm('정말로 삭제하시겠습니까?');
       if (!confirm) {
         return;
       }
-      await deleteApplication({
-        variables: {
-          id,
-          password
-        },
-        update(
-          cache,
-          {
-            data: { deleteIndividualApplication }
-          }
-        ) {
-          const { individualApplications } = cache.readQuery({
-            query: Q.INDIVIDUAL_APPLICATIONS
-          });
-          cache.writeQuery({
-            query: Q.INDIVIDUAL_APPLICATIONS,
-            data: {
-              individualApplications: individualApplications.filter(
-                item => item.id !== deleteIndividualApplication.id
-              )
-            }
-          });
-        }
-      });
+
+      await requestDeleteApplication({ id, password });
 
       window.alert('성공적으로 삭제되었습니다!');
     } catch (e) {
-      const { message } = e;
-      switch (message) {
-        case 'GraphQL error: Password does not match.': {
-          window.alert('비밀번호가 일치하지 않습니다.');
-          break;
-        }
-        default: {
-          window.alert('오류가 발생했습니다. 다시 시도해 주세요.');
-        }
-      }
+      handleError(e);
     }
   };
 
@@ -144,8 +172,14 @@ function Individual({ isLoggedIn }) {
           <Grid item xs={12} md={12}>
             <IndividualRoundStatus
               applications={data && data.individualApplications}
-              onEdit={handleEditApplication}
-              onDelete={handleDeleteApplication}
+              onEdit={
+                isLoggedIn ? handleAdminEditApplicaiton : handleEditApplication
+              }
+              onDelete={
+                isLoggedIn
+                  ? handleAdminDeleteApplication
+                  : handleDeleteApplication
+              }
             />
           </Grid>
         </Grid>

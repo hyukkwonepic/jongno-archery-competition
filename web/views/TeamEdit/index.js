@@ -19,18 +19,20 @@ function TeamEdit({ isLoggedIn }) {
 
   const [password, setPassword] = useState(null);
 
-  useEffect(() => {
-    const sessionPassword = window.sessionStorage.getItem('tmp_password');
-    if (sessionPassword) {
-      setPassword(sessionPassword);
-      window.sessionStorage.removeItem('tmp_password');
-    } else {
-      window.alert('유효하지 않은 접근입니다.');
-      router.push({
-        pathname: '/team'
-      });
-    }
-  }, []);
+  if (!isLoggedIn) {
+    useEffect(() => {
+      const sessionPassword = window.sessionStorage.getItem('tmp_password');
+      if (sessionPassword) {
+        setPassword(sessionPassword);
+        window.sessionStorage.removeItem('tmp_password');
+      } else {
+        window.alert('유효하지 않은 접근입니다.');
+        router.push({
+          pathname: '/team'
+        });
+      }
+    }, []);
+  }
 
   // Query
   const { error, data } = useQuery(Q.TEAM_APPLICATION, {
@@ -40,7 +42,6 @@ function TeamEdit({ isLoggedIn }) {
   });
   if (error) {
     const { message } = error;
-    console.log({ message });
     switch (message) {
       case 'GraphQL error: Application does not exist.': {
         window.alert('존재하지 않는 신청 내역입니다.');
@@ -137,7 +138,7 @@ function TeamEdit({ isLoggedIn }) {
   };
 
   // Show nothing if there is no password
-  if (!password) {
+  if (!isLoggedIn && !password) {
     return null;
   }
 

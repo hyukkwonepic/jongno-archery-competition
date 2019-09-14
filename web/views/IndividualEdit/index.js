@@ -19,18 +19,20 @@ function IndividualEdit({ isLoggedIn }) {
 
   const [password, setPassword] = useState(null);
 
-  useEffect(() => {
-    const sessionPassword = window.sessionStorage.getItem('tmp_password');
-    if (sessionPassword) {
-      setPassword(sessionPassword);
-      window.sessionStorage.removeItem('tmp_password');
-    } else {
-      window.alert('유효하지 않은 접근입니다.');
-      router.push({
-        pathname: '/individual'
-      });
-    }
-  }, []);
+  if (!isLoggedIn) {
+    useEffect(() => {
+      const sessionPassword = window.sessionStorage.getItem('tmp_password');
+      if (sessionPassword) {
+        setPassword(sessionPassword);
+        window.sessionStorage.removeItem('tmp_password');
+      } else {
+        window.alert('유효하지 않은 접근입니다.');
+        router.push({
+          pathname: '/individual'
+        });
+      }
+    }, []);
+  }
 
   // Query
   const { error, data } = useQuery(Q.INDIVIDUAL_APPLICATION, {
@@ -111,7 +113,7 @@ function IndividualEdit({ isLoggedIn }) {
   };
 
   // Show nothing if there is no password
-  if (!password) {
+  if (!isLoggedIn && !password) {
     return null;
   }
 
