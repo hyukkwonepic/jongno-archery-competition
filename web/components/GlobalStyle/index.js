@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
   .MuiTableCell-root {
     padding: 1.6rem 1rem !important;
   }
+
+  button[type='submit'] {
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
