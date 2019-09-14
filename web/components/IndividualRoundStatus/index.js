@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import Link from 'next/link';
 
+import FullTableButton from '../../components/FullTableButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,7 +25,7 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getFistDayTableContent({ applications, onDelete, onEdit }) {
+function getFistDayTableContent({ fullTable, applications, onDelete, onEdit }) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -85,33 +87,36 @@ function getFistDayTableContent({ applications, onDelete, onEdit }) {
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
           {mobile}
         </TableCell>
-        <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onEdit(id) : null}>
-              <EditSVG />
-            </button>
-          )}
-        </TableCell>
-        <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onDelete(id) : null}>
-              <CancelSVG />
-            </button>
-          )}
-        </TableCell>
+        {!fullTable && (
+          <>
+            <TableCell
+              className={isLastCellOfRound ? 'last' : ''}
+              align="center"
+            >
+              {application && (
+                <button type="button" onClick={id ? () => onEdit(id) : null}>
+                  <EditSVG />
+                </button>
+              )}
+            </TableCell>
+            <TableCell
+              className={isLastCellOfRound ? 'last' : ''}
+              align="center"
+            >
+              {application && (
+                <button type="button" onClick={id ? () => onDelete(id) : null}>
+                  <CancelSVG />
+                </button>
+              )}
+            </TableCell>
+          </>
+        )}
       </TableRow>
     );
   }
 
   return (
     <>
-      <TableHead>
-        <TableRow>
-          <TableCell colSpan="8" align="center">
-            개인전 9월 21일(토) 1 ~ 9대
-          </TableCell>
-        </TableRow>
-      </TableHead>
       <TableHead>
         <TableRow>
           <TableCell align="center" colSpan={1}>
@@ -132,20 +137,36 @@ function getFistDayTableContent({ applications, onDelete, onEdit }) {
           <TableCell align="center" colSpan={1}>
             전화번호
           </TableCell>
-          <TableCell align="center" colSpan={1}>
-            수정
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            취소
-          </TableCell>
+          {!fullTable && (
+            <>
+              <TableCell align="center" colSpan={1}>
+                수정
+              </TableCell>
+              <TableCell align="center" colSpan={1}>
+                취소
+              </TableCell>
+            </>
+          )}
         </TableRow>
       </TableHead>
-      <TableBody>{tableRows.map(item => item)}</TableBody>
+      <TableBody>
+        <TableRow className="separator">
+          <TableCell colSpan="8" align="center">
+            개인전 9월 21일(토) 1 ~ 9대
+          </TableCell>
+        </TableRow>
+        {tableRows.map(item => item)}
+      </TableBody>
     </>
   );
 }
 
-function getSecondDayTableContent({ applications, onDelete, onEdit }) {
+function getSecondDayTableContent({
+  fullTable,
+  applications,
+  onDelete,
+  onEdit
+}) {
   // First day Sep 22nd
   let tableRows = [];
   const startRound = 10;
@@ -217,39 +238,48 @@ function getSecondDayTableContent({ applications, onDelete, onEdit }) {
         <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
           {mobile}
         </TableCell>
-        <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onEdit(id) : null}>
-              <EditSVG />
-            </button>
-          )}
-        </TableCell>
-        <TableCell className={isLastCellOfRound ? 'last' : ''} align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onDelete(id) : null}>
-              <CancelSVG />
-            </button>
-          )}
-        </TableCell>
+        {!fullTable && (
+          <>
+            <TableCell
+              className={isLastCellOfRound ? 'last' : ''}
+              align="center"
+            >
+              {application && (
+                <button type="button" onClick={id ? () => onEdit(id) : null}>
+                  <EditSVG />
+                </button>
+              )}
+            </TableCell>
+            <TableCell
+              className={isLastCellOfRound ? 'last' : ''}
+              align="center"
+            >
+              {application && (
+                <button type="button" onClick={id ? () => onDelete(id) : null}>
+                  <CancelSVG />
+                </button>
+              )}
+            </TableCell>
+          </>
+        )}
       </TableRow>
     );
   }
 
   return (
-    <>
-      <TableHead>
-        <TableRow style={{ borderTop: 'unset' }}>
-          <TableCell colSpan="8" align="center">
-            개인전 9월 22일(토) 10 ~ 45대
-          </TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>{tableRows.map(item => item)}</TableBody>
-    </>
+    <TableBody>
+      <TableRow className="separator">
+        <TableCell colSpan="8" align="center">
+          개인전 9월 22일(토) 10 ~ 45대
+        </TableCell>
+      </TableRow>
+      {tableRows.map(item => item)}
+    </TableBody>
   );
 }
 
 export default function IndividualRoundStatus({
+  fullTable,
   applications,
   onDelete,
   onEdit
@@ -267,16 +297,26 @@ export default function IndividualRoundStatus({
 
   return (
     <S.Round>
-      <h2>작대 현황</h2>
+      {!fullTable && (
+        <>
+          <h2>작대 현황</h2>
+
+          <Link href="/individual/full-table">
+            <FullTableButton />
+          </Link>
+        </>
+      )}
 
       <S.TableContainer>
         <Table>
           {getFistDayTableContent({
+            fullTable,
             applications: firstDayApplications,
             onDelete,
             onEdit
           })}
           {getSecondDayTableContent({
+            fullTable,
             applications: secondDayApplications,
             onDelete,
             onEdit

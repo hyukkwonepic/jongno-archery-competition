@@ -16,7 +16,7 @@ export const Round = styled.div`
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
-    margin-bottom: 5rem;
+    margin-bottom: 0.5rem;
     color: #333;
     @media only screen and (min-width: 960px) {
       font-size: 2.2rem;
@@ -84,6 +84,15 @@ export const TableContainer = styled.div`
         }
 
         td.last {
+          border-bottom: 1px solid #999;
+        }
+      }
+
+      tr.separator {
+        background: #eee;
+
+        td {
+          font-weight: 700;
           border-bottom: 1px solid #999;
         }
       }

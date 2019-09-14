@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import Link from 'next/link';
 
+import FullTableButton from '../../components/FullTableButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,7 +25,7 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getTableContent({ applications, onDelete, onEdit }) {
+function getTableContent({ fullTable, applications, onDelete, onEdit }) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -84,33 +86,30 @@ function getTableContent({ applications, onDelete, onEdit }) {
         <TableCell align="center">{players}</TableCell>
         <TableCell align="center">{substitute}</TableCell>
         <TableCell align="center">{mobile}</TableCell>
-        <TableCell align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onEdit(id) : null}>
-              <EditSVG />
-            </button>
-          )}
-        </TableCell>
-        <TableCell align="center">
-          {application && (
-            <button type="button" onClick={id ? () => onDelete(id) : null}>
-              <CancelSVG />
-            </button>
-          )}
-        </TableCell>
+        {!fullTable && (
+          <>
+            <TableCell align="center">
+              {application && (
+                <button type="button" onClick={id ? () => onEdit(id) : null}>
+                  <EditSVG />
+                </button>
+              )}
+            </TableCell>
+            <TableCell align="center">
+              {application && (
+                <button type="button" onClick={id ? () => onDelete(id) : null}>
+                  <CancelSVG />
+                </button>
+              )}
+            </TableCell>
+          </>
+        )}
       </TableRow>
     );
   }
 
   return (
     <>
-      <TableHead>
-        <TableRow>
-          <TableCell colSpan="13" align="center">
-            단체전 9월 21일(토) 1 ~ 60대
-          </TableCell>
-        </TableRow>
-      </TableHead>
       <TableHead>
         <TableRow>
           <TableCell align="center" colSpan={1}>
@@ -134,27 +133,51 @@ function getTableContent({ applications, onDelete, onEdit }) {
           <TableCell align="center" colSpan={1}>
             대표 번호
           </TableCell>
-          <TableCell align="center" colSpan={1}>
-            수정
-          </TableCell>
-          <TableCell align="center" colSpan={1}>
-            취소
-          </TableCell>
+          {!fullTable && (
+            <>
+              <TableCell align="center" colSpan={1}>
+                수정
+              </TableCell>
+              <TableCell align="center" colSpan={1}>
+                취소
+              </TableCell>
+            </>
+          )}
         </TableRow>
       </TableHead>
-      <TableBody>{tableRows.map(item => item)}</TableBody>
+      <TableBody>
+        <TableRow className="separator">
+          <TableCell colSpan="13" align="center">
+            단체전 9월 21일(토) 1 ~ 60대
+          </TableCell>
+        </TableRow>
+        {tableRows.map(item => item)}
+      </TableBody>
     </>
   );
 }
 
-export default function TeamRoundStatus({ applications, onDelete, onEdit }) {
+export default function TeamRoundStatus({
+  fullTable,
+  applications,
+  onDelete,
+  onEdit
+}) {
   return (
     <S.TeamRound>
-      <h2>작대 현황</h2>
+      {!fullTable && (
+        <>
+          <h2>작대 현황</h2>
 
+          <Link href="/team/full-table">
+            <FullTableButton />
+          </Link>
+        </>
+      )}
       <S.TableContainer>
         <Table>
           {getTableContent({
+            fullTable,
             applications,
             onDelete,
             onEdit
