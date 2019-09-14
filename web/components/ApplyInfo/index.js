@@ -9,7 +9,8 @@ export default function ApplyInfo({ startDate, endDate, path, ...props }) {
       <h2>신청 기간</h2>
       <S.Date>
         <span>
-          {startDate} ~ {endDate}
+          <span>{startDate} ~</span>
+          <span>{endDate}</span>
         </span>
       </S.Date>
       <div>

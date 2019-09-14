@@ -158,8 +158,8 @@ function Team({ isLoggedIn }) {
           </Grid>
           <Grid item xs={12} md={6}>
             <ApplyInfo
-              startDate="2019년 9월 21일(토)"
-              endDate="2019년 9월 22일 (일)"
+              startDate="2019년 9월 16일(월) 09:00"
+              endDate="2019년 9월 18일(수) 18:00"
               path="/team/apply"
             />
           </Grid>

@@ -37,7 +37,7 @@ export const Date = styled.div`
     font-size: 1.6rem;
     font-weight: 500;
     color: #333;
-    margin-bottom: 1rem;
+    margin: 0.5rem 0;
   }
 `;
 
