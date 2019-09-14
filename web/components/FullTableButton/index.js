@@ -1,5 +1,4 @@
 import React from 'react';
-import AddSvg from '../../assets/AddSvg';
 import ExpandSvg from '../../assets/ExpandSvg';
 
 import * as S from './styles';
