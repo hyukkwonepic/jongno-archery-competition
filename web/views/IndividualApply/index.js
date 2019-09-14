@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Grid from '@material-ui/core/Grid';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
 import { withAuth } from '../../lib/auth';
@@ -15,7 +15,25 @@ import * as IndividualQ from '../Individual/queries';
 
 function IndividualApply({ isLoggedIn }) {
   const router = useRouter();
+  const client = useApolloClient();
+
   const [createApplication] = useMutation(Q.CREATE_INDIVIDUAL_APPLICATION);
+
+  if (!isLoggedIn) {
+    useEffect(() => {
+      const fetchData = async () => {
+        const { data } = await client.query({
+          query: Q.VALIDATE_APPLICATION_AVAILABILITY
+        });
+
+        if (data && !data.validateApplicationAvailability) {
+          window.alert('지금은 신청 기간이 아닙니다.');
+          router.back();
+        }
+      };
+      fetchData();
+    });
+  }
 
   const handleApplyFormSubmit = async ({
     round,

@@ -13,3 +13,9 @@ export const CREATE_SEMIPRO_APPLICATION = gql`
     }
   }
 `;
+
+export const VALIDATE_APPLICATION_AVAILABILITY = gql`
+  query validateApplicationAvailability {
+    validateApplicationAvailability
+  }
+`;

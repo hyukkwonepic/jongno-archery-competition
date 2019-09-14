@@ -15,3 +15,9 @@ export const CREATE_INDIVIDUAL_APPLICATION = gql`
     }
   }
 `;
+
+export const VALIDATE_APPLICATION_AVAILABILITY = gql`
+  query validateApplicationAvailability {
+    validateApplicationAvailability
+  }
+`;

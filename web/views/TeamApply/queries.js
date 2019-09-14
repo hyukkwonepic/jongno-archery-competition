@@ -17,3 +17,9 @@ export const CREATE_TEAM_APPLICATION = gql`
     }
   }
 `;
+
+export const VALIDATE_APPLICATION_AVAILABILITY = gql`
+  query validateApplicationAvailability {
+    validateApplicationAvailability
+  }
+`;
