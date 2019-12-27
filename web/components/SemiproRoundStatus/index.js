@@ -25,7 +25,13 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getTableContent({ fullTable, applications, onDelete, onEdit }) {
+function getTableContent({
+  isLoggedIn,
+  fullTable,
+  applications,
+  onDelete,
+  onEdit
+}) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -60,7 +66,7 @@ function getTableContent({ fullTable, applications, onDelete, onEdit }) {
       city = application.city;
       range = application.range;
       name = application.name;
-      mobile = hideMobile(application.mobile);
+      mobile = isLoggedIn ? application.mobile : hideMobile(application.mobile);
     }
 
     tableRows.push(
@@ -162,6 +168,7 @@ function getTableContent({ fullTable, applications, onDelete, onEdit }) {
 }
 
 export default function SemiproRoundStatus({
+  isLoggedIn,
   fullTable,
   applications,
   onDelete,
@@ -182,6 +189,7 @@ export default function SemiproRoundStatus({
       <S.TableContainer>
         <Table>
           {getTableContent({
+            isLoggedIn,
             fullTable,
             applications,
             onDelete,

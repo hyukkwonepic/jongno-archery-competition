@@ -160,7 +160,7 @@ function createApolloClient(initialState = {}, { getSession }) {
   }
 
   const httpLink = new HttpLink({
-    uri: 'https://hhj-jongno-archery-competition.firebaseapp.com/graphql', // Server URL (must be absolute)
+    uri: 'https://hhj-jongno-archery-competition.web.app/graphql', // Server URL (must be absolute)
     credentials: 'include',
     fetch,
     fetchOptions

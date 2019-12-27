@@ -166,6 +166,7 @@ function Semipro({ isLoggedIn }) {
           </Grid>
           <Grid item xs={12} md={12}>
             <SemiproRoundStatus
+              isLoggedIn={isLoggedIn}
               applications={data && data.semiproApplications}
               onEdit={
                 isLoggedIn ? handleAdminEditApplicaiton : handleEditApplication

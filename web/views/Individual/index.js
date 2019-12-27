@@ -171,6 +171,7 @@ function Individual({ isLoggedIn }) {
           </Grid>
           <Grid item xs={12} md={12}>
             <IndividualRoundStatus
+              isLoggedIn={isLoggedIn}
               applications={data && data.individualApplications}
               onEdit={
                 isLoggedIn ? handleAdminEditApplicaiton : handleEditApplication

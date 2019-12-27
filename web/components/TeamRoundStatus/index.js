@@ -25,7 +25,13 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getTableContent({ fullTable, applications, onDelete, onEdit }) {
+function getTableContent({
+  isLoggedIn,
+  fullTable,
+  applications,
+  onDelete,
+  onEdit
+}) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -44,11 +50,6 @@ function getTableContent({ fullTable, applications, onDelete, onEdit }) {
     let id = '';
     let city = '';
     let range = '';
-    // let player1 = '';
-    // let player2 = '';
-    // let player3 = '';
-    // let player4 = '';
-    // let player5 = '';
     let players = '';
     let substitute = '';
     let mobile = '';
@@ -68,7 +69,7 @@ function getTableContent({ fullTable, applications, onDelete, onEdit }) {
         players = `${player1}, ${player2}, ${player3}, ${player4}, ${player5}`;
       }
       substitute = application.substitute;
-      mobile = hideMobile(application.mobile);
+      mobile = isLoggedIn ? application.mobile : hideMobile(application.mobile);
     }
 
     tableRows.push(
@@ -158,6 +159,7 @@ function getTableContent({ fullTable, applications, onDelete, onEdit }) {
 }
 
 export default function TeamRoundStatus({
+  isLoggedIn,
   fullTable,
   applications,
   onDelete,
@@ -177,6 +179,7 @@ export default function TeamRoundStatus({
       <S.TableContainer>
         <Table>
           {getTableContent({
+            isLoggedIn,
             fullTable,
             applications,
             onDelete,

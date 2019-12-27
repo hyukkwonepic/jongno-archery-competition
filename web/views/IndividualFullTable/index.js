@@ -3,13 +3,14 @@ import Head from 'next/head';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import Layout from '../../components/Layout';
 import IndividualRoundStatus from '../../components/IndividualRoundStatus';
 
 import * as Q from '../Individual/queries';
 
-function IndividualFullTable() {
+function IndividualFullTable({ isLoggedIn }) {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     Q.INDIVIDUAL_APPLICATIONS
   );
@@ -28,6 +29,7 @@ function IndividualFullTable() {
         />
       </Head>
       <IndividualRoundStatus
+        isLoggedIn={isLoggedIn}
         fullTable
         applications={data && data.individualApplications}
       />
@@ -35,4 +37,4 @@ function IndividualFullTable() {
   );
 }
 
-export default withApollo(IndividualFullTable);
+export default withApollo(withAuth(IndividualFullTable));

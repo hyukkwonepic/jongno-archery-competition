@@ -1,5 +1,5 @@
 const functions = require('firebase-functions');
-const next = require('next');
+const next = require('next-server');
 const express = require('express');
 
 const app = next({ dir: __dirname, conf: { distDir: 'next' } });

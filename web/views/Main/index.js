@@ -41,7 +41,7 @@ function Main({ isLoggedIn }) {
               path="/team"
               dates={[
                 {
-                  date: '2019년 9월 21일(일)',
+                  date: '2019년 9월 21일(토)',
                   round: '1대 ~ 60대'
                 }
               ]}

@@ -130,7 +130,7 @@ export default function IndividualTimetable() {
           <TableHead>
             <TableRow>
               <TableCell colSpan="4" align="center">
-                개인전 9월 22일(토) 10 ~ 45대
+                개인전 9월 22일(일) 10 ~ 45대
               </TableCell>
             </TableRow>
           </TableHead>

@@ -25,7 +25,13 @@ function hideMobile(mobile) {
   return '';
 }
 
-function getFistDayTableContent({ fullTable, applications, onDelete, onEdit }) {
+function getFistDayTableContent({
+  isLoggedIn,
+  fullTable,
+  applications,
+  onDelete,
+  onEdit
+}) {
   // First day Sep 21st
   let tableRows = [];
   const startRound = 1;
@@ -60,7 +66,7 @@ function getFistDayTableContent({ fullTable, applications, onDelete, onEdit }) {
       city = application.city;
       range = application.range;
       name = application.name;
-      mobile = hideMobile(application.mobile);
+      mobile = isLoggedIn ? application.mobile : hideMobile(application.mobile);
     }
 
     tableRows.push(
@@ -162,6 +168,7 @@ function getFistDayTableContent({ fullTable, applications, onDelete, onEdit }) {
 }
 
 function getSecondDayTableContent({
+  isLoggedIn,
   fullTable,
   applications,
   onDelete,
@@ -211,7 +218,7 @@ function getSecondDayTableContent({
       city = application.city;
       range = application.range;
       name = application.name;
-      mobile = hideMobile(application.mobile);
+      mobile = isLoggedIn ? application.mobile : hideMobile(application.mobile);
     }
 
     tableRows.push(
@@ -270,7 +277,7 @@ function getSecondDayTableContent({
     <TableBody>
       <TableRow className="separator">
         <TableCell colSpan="8" align="center">
-          개인전 9월 22일(토) 10 ~ 45대
+          개인전 9월 22일(일) 10 ~ 45대
         </TableCell>
       </TableRow>
       {tableRows.map(item => item)}
@@ -279,6 +286,7 @@ function getSecondDayTableContent({
 }
 
 export default function IndividualRoundStatus({
+  isLoggedIn,
   fullTable,
   applications,
   onDelete,
@@ -310,12 +318,14 @@ export default function IndividualRoundStatus({
       <S.TableContainer>
         <Table>
           {getFistDayTableContent({
+            isLoggedIn,
             fullTable,
             applications: firstDayApplications,
             onDelete,
             onEdit
           })}
           {getSecondDayTableContent({
+            isLoggedIn,
             fullTable,
             applications: secondDayApplications,
             onDelete,

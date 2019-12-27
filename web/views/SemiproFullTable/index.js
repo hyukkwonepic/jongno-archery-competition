@@ -3,12 +3,13 @@ import Head from 'next/head';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import SemiproRoundStatus from '../../components/SemiproRoundStatus';
 
 import * as Q from '../Semipro/queries';
 
-function SemiproFullTable() {
+function SemiproFullTable({ isLoggedIn }) {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     Q.SEMIPRO_APPLICATIONS
   );
@@ -27,6 +28,7 @@ function SemiproFullTable() {
         />
       </Head>
       <SemiproRoundStatus
+        isLoggedIn={isLoggedIn}
         fullTable
         applications={data && data.semiproApplications}
       />
@@ -34,4 +36,4 @@ function SemiproFullTable() {
   );
 }
 
-export default withApollo(SemiproFullTable);
+export default withApollo(withAuth(SemiproFullTable));

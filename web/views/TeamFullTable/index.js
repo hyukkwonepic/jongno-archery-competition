@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 
 import { withApollo } from '../../lib/apollo';
+import { withAuth } from '../../lib/auth';
 
 import TeamRoundStatus from '../../components/TeamRoundStatus';
 
@@ -26,9 +27,13 @@ function TeamFullTable() {
           href="/static/favicon.ico"
         />
       </Head>
-      <TeamRoundStatus fullTable applications={data && data.teamApplications} />
+      <TeamRoundStatus
+        isLoggedIn={isLoggedIn}
+        fullTable
+        applications={data && data.teamApplications}
+      />
     </>
   );
 }
 
-export default withApollo(TeamFullTable);
+export default withApollo(withAuth(TeamFullTable));

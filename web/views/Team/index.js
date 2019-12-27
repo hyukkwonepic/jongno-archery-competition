@@ -165,6 +165,7 @@ function Team({ isLoggedIn }) {
           </Grid>
           <Grid item xs={12} md={12}>
             <TeamRoundStatus
+              isLoggedIn={isLoggedIn}
               applications={data && data.teamApplications}
               onEdit={
                 isLoggedIn ? handleAdminEditApplicaiton : handleEditApplication
